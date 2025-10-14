@@ -1,3 +1,20 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+
+class CustomUser(AbstractUser):
+    """
+    CustomUser extends/builds upon the base User
+    model so that custom fields can be added
+    """
+    #Custom user fields follow here and should not
+    #be the same as existing User.<object> fields
+    #should also be blank=True to not break auth
+
+    location = models.CharField(max_length=100, blank=True)
+    phone_number = models.models.PhoneNumberField()
+
+    def __str__(self):
+        return self.username
+    
