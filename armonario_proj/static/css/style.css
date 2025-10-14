@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Tagesschrift&family=Yuji+Syuku&display=swap");
+
+:root {
+  --title-font: "Tagesschrift", system-ui;
+  --secondary-font: "Yuji Syuku", serif;
+}
+h1 {
+  font-family: var(--title-font);
+  font-weight: 400;
+  padding-left: 10%;
+}
+p {
+  font-family: var(--secondary-font);
+  font-size: 1rem;
+  text-align: center;
+}
+body {
+  margin: auto;
+  width: 80%;
+  /* border: red dashed; */
+  font-family: var(--secondary-font);
+  min-height: 100dvh;
+}
+
+header {
+  background-color: pink;
+}
+
+div {
+  /* border: 1px dashed; */
+}
+img{
+  max-width: 100%;
+}
+.large-font{
+  font-size: 1.5rem;
+}
+/* .container {
+  max-width: 850px;
+  height: 50dvh;
+  border: green dashed;
+  place-self: center;
+  align-content: center;
+} */
+.cta-form{
+ place-items:center;
+  position:sticky;
+  top:0;
+  
+}
+.cta-form input, .cta-form button{
+  border:none;
+  border-radius:12px;
+  height:25px;
+}
+.cta-form input{
+  padding-right:50px;
+  width:100%;
+  box-sizing:border-box;
+  background-color:#f7b801;
+}
+.cta-form button{
+  position: absolute;
+  width:clamp(50px, 10%, 100px);
+  top:50%;
+  right:0px;
+  background-color:#66023c;
+}
+.login-container{
+  position:relative;
+  height:fit-content;
+  width:clamp(250px, 50%, 800px);
+  backdrop-filter: blur(1rem);
+  border-radius: 1rem;
+  /* border:blue dashed 1px; */
+}
+#title{
+  margin-bottom: 75px;
+  background-color: #f7b801;
+}
+.sticky{
+  position: fixed;
+  top: 0;
+
+}
+.img-block{
+    /* width: 50%;
+    height:100px; */
+}
+.text-div{
+    /* width: 50%; */
+}
+.info-blocks{
+display: grid;
+grid-template-columns: repeat(auto-fit,minmax(200px, 1fr));
+}
+.product-info{
+    /* display: flex; */
+     margin: 50px 5px;
+}
+#alternate-layout{
+    order: 2;
+}
+.skew-right{
+  transform: perspective(300px) rotateY(5deg);
+}
+
+/* input:not(:placeholder-shown):valid{outline: 3px green;} */
+
+/* #to-make-images-fit-nicely{
+    inline-size: 200px;
+    aspect-ratio: 1;/* maintains original without stretching/changes*/
+/* object-fit: cover; stops the image being physically stretched and just crops */
+/* border-radius: 100vw; */
+/* }  */

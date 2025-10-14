@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+<div id="title">
+    <h1>ARMONARIO</h1>
+    <p class="large-font">Timekeeping for your tribe, from family to Empire...</p>
+</div>
+<div class="container">
+    <div class="login-form ">
+
+    </div>
+</div>
+<hr>
+<section>
+    <form class="cta-form" action="">
+        <div class="login-container">
+            <label for="email">Create an account or login:</label>
+            <input id='login-input' type="email" name="email" id="email" placeholder="caesar@armonario.co.uk">
+            <button id='login-btn' type="submit">▶</button>
+        </div>
+    </form>
+    <div class="product-info">
+        <div class="info-blocks">
+            <div class="img-block">
+                <img src="{% static 'images/caesar-addresses-army.webp' %}" alt="" sizes="" srcset="">
+            </div>
+            <div class="text-div">
+                <p>
+                    Summon the centurions or schedule a playdate with Nonna.Create Groups for work and Groups for
+                    friends or family. Use the name and generated sharecode to let
+                    others join your Groups safely and securely.
+                </p>
+            </div>
+        </div>
+        <div class="info-blocks">
+            <div class="img-block skew-right" id="alternate-layout ">
+                <img src="{% static 'images/roman-puzzled-calendar.webp'%}" alt="" sizes="" srcset="">
+            </div>
+            <div class="text-div">
+                <p>
+                    Calendars are personalised to you and easy to understand. Groups and events are coloured for a clear
+                    picture at a glance.
+                    Choose to hide private events from your Group or indicate you are 'busy' whilst Group events still
+                    show.
+                </p>
+            </div>
+        </div>
+        <div class="info-blocks">
+            <div class="img-block">
+                <img src="{% static 'images/terrible-calendar.webp'%}" alt="" sizes="" srcset="">
+            </div>
+            <div class="text-div">
+                <p>
+                    Change your view
+                    Choose your Group colour, personal event colours and more.
+                    Display a monthly calendar or an upcoming list with details.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% load static %}
+{% url 'home' as home_url %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+</head>
+
+<body>
+    <header>
+        <div>
+            <nav>
+                <li>
+                    <ul>Calendar</ul>
+                    <ul>Profile</ul>
+                    <ul>About</ul>
+                </li>
+            </nav>
+        </div>
+    </header>
+    <main >
+        
+        {% block content %}
+        <!-- Content Goes here -->
+        {% endblock content %}
+
+    </main>
+</body>
+
+</html>
