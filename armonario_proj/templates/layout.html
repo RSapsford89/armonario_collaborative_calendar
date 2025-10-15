@@ -17,15 +17,12 @@
         <div>
             <nav>
                 <ul>
-                    <ul><a href="/">Home</a></ul>
+                    {% if request.path != '/' %}
+                        <ul><a href="/">Home</a></ul>
+                    {% endif %}
                     {% if user.is_authenticated %}
                         <ul><a href="{% url "user:profile" %}">{{user.username}} 's Profile</a></ul>
                         <ul><a href="{% url "user:logout" %}">Log out {{user.username}}</a></ul>
-                        <form action="{% url "user:logout" %}" method="post">
-                            {% csrf_token %}
-                            <button>Log out</button>
-                        </form>
-                    {% comment %} <ul><a href="{% url "user:logout" %}"></a></ul> {% endcomment %}
                     {% else %}
                         <ul><a href="{% url "user:login" %}">Log in</a></ul>
                         <ul><a href="{% url "user:register" %}">Register</a></ul>
