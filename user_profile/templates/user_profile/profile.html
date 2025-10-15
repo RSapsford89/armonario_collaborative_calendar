@@ -1,13 +1,19 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 <section>
     {% if user.is_authenticated %}
-    <h1>User Profile</h1>
+    <h1>{{user}} Profile</h1>
 
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore numquam unde magni ab! Mollitia deleniti accusantium aspernatur laborum totam excepturi vero nihil nostrum tempore aliquid, ipsum ea consequuntur vel delectus?</p>
-    <h2></h2>
     
+    <h2></h2>
+    <li>{{user.email}}</li>
+    <li>{{user.first_name}}</li>
+    <li>{{user.last_name}}</li>
+    <li>{{user.phone_number}}</li>
+    <li>{{user.location}}</li>
+    {% else %}
+    <h2>User not logged in, please <a href="{% url "user:login" %}">Log In</a> or <a href="{% url "user:register" %}">Sign-Up</a></h2>
     {% endif %}
 </section>
 {% endblock content %}
