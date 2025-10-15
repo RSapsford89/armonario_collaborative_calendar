@@ -13,7 +13,7 @@ class CustomUser(AbstractUser):
     #should also be blank=True to not break auth
 
     location = models.CharField(max_length=100, blank=True)
-    phone_number = models.models.PhoneNumberField()
+    phone_number = models.CharField( max_length=50, blank=True)
 
     def __str__(self):
         return self.username

@@ -2,7 +2,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm 
 from django import forms 
 User = get_user_model()
-
+# This code is based largely on the custom form built in 
+#the YouTube video by Codemy.com: https://www.youtube.com/watch?v=HdrOcreAXKk&t=397s
 class CustomUserForm(UserCreationForm):
     """
     UserCreationForm is bound to the AUTH_USER_MODEL string

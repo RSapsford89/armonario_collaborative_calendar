@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section>
+    {% if user.is_authenticated %}
+    <h1>User Profile</h1>
+
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore numquam unde magni ab! Mollitia deleniti accusantium aspernatur laborum totam excepturi vero nihil nostrum tempore aliquid, ipsum ea consequuntur vel delectus?</p>
+    <h2></h2>
+    
+    {% endif %}
+</section>
+{% endblock content %}
