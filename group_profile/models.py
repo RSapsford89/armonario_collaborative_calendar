@@ -1,4 +1,5 @@
 from django.db import models
+from user_profile.models import CustomUser
 from django.utils.crypto import get_random_string
 
 # Create your models here.
@@ -17,6 +18,7 @@ class GroupProfile(models.Model):
     GroupColour treated as hex value - supplied from HTML colour picker on form
 
     """
+    members = models.ManyToManyField(CustomUser, through="UserGroupLink")
     GroupName = models.CharField(blank=False, max_length=128)
     #GroupOwner = #This needs to link to the table of the user... Either Junction table or not?
     GroupColour = models.CharField(blank=False, default='FFFFFF', max_length=6) #hex colour value, should link to color icker hex on the html side
@@ -29,3 +31,23 @@ class GroupProfile(models.Model):
 
     def __str__(self):
         return self.GroupName
+
+STATUS =((0,'none'),(1,'Owner'),(2,'Member'))#example found in CI Django walkthrough
+
+class UserGroupLink(models.Model):
+    """
+    Joining or Through table. This links the many to many fields of
+    Group and Users through their IDs. Many Users can be in many groups
+    and vice versa. 'status' used to denote the User as member/none/owner
+    """
+    customUser = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    groupProfile = models.ForeignKey('GroupProfile', on_delete=models.CASCADE)
+    status = models.IntegerField(choices=STATUS, default=0)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['customUser', 'groupProfile'], 
+                name='unique_customUser_groupProfile'
+            )
+        ]

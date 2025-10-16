@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import GroupForm
+from .forms import GroupForm, GroupProfile
 
 # Create your views here.
 
@@ -14,3 +14,10 @@ def create_group(request):
     else:
         form = GroupForm()
     return render(request, 'group_profile/create.html', {'form': form})
+
+def list_group(request):
+    groups = GroupProfile.objects.all()
+    template_name = "group_profile/create.html"
+    paginate_by =20
+
+    return render(request, 'group_profile/join.html', {'groups': groups})
