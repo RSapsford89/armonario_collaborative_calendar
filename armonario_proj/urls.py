@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.homepage, name='home'),
     path('calendar/', calendar_view.index, name='calendar'),
-    path('user/', include('user_profile.urls', namespace='user') ),
+    path('group/', include('group_profile.urls', namespace='group')),
+    path('user/', include('user_profile.urls', namespace='user')),
 ]
