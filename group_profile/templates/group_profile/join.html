@@ -4,11 +4,13 @@
 {% block content %}
 {% comment " This skeleton code is taken from a YouTube Tutorial by DaveGray www.youtube.com/watch?v=DIFaOkxy6TE " %}{% endcomment %}
     <section>
-        <h1>List the groups</h1>
+        <h1>Join the groups</h1>
+            <p>{{search}}</p>
+        <h2>To show tables are working</h2>
         {% for group in groups %}
         <li>{{group.GroupName}}</li>
             {% for user in group.members.all %}
-            <li>{{user.username}}</li>
+            <li>member: {{user.username}}</li>
             {% endfor %}
         {% endfor %}
     </section>

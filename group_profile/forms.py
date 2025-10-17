@@ -1,7 +1,7 @@
 from django import forms
 from group_profile.models import GroupProfile
 
-class GroupForm(forms.ModelForm):
+class CreateGroupForm(forms.ModelForm):
     """
     Form contents to render in the view
     for  creating Groups
@@ -14,3 +14,17 @@ class GroupForm(forms.ModelForm):
             'GroupColour',
             'GroupShareCode'
             )
+        
+
+class JoinGroupForm(forms.ModelForm):
+    """
+    Form contents to render in the view
+    for Joining a Group.
+    """
+
+    class Meta():
+        model = GroupProfile
+        fields = (
+            'GroupName',
+            'GroupShareCode'
+        )
