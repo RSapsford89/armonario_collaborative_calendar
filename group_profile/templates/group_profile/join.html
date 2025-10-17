@@ -5,7 +5,16 @@
 {% comment " This skeleton code is taken from a YouTube Tutorial by DaveGray www.youtube.com/watch?v=DIFaOkxy6TE " %}{% endcomment %}
     <section>
         <h1>Join the groups</h1>
-            <p>{{search}}</p>
+            <p>The returned object from the request 'GroupProfile.objects.filter(GroupName__icontains='Test')' is:   {{search}}</p>
+            <form  method="post">
+                {% csrf_token %}
+                <input type="text" name="group_search" value ="{{group_search}}"placeholder="Search for a group...">
+                <input type="text" name="sharecode_test" value ="{{sharecode_test}}"placeholder="Enter the sharecode">
+                <button type="submit">🔍</button>
+            </form>
+            <p>Group object: {{group}}</p>
+            <br>
+            <p>{{group.GroupShareCode}}</p>
         <h2>To show tables are working</h2>
         {% for group in groups %}
         <li>{{group.GroupName}}</li>
