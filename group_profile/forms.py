@@ -14,6 +14,9 @@ class CreateGroupForm(forms.ModelForm):
             'GroupColour',
             'GroupShareCode'
             )
+        widgets = {
+            'GroupColour': forms.ColorInput(),
+        }
         
 
 class JoinGroupForm(forms.ModelForm):

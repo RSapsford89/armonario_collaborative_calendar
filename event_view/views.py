@@ -19,4 +19,4 @@ def create_event(request):
     else:
         form = CreateEventForm()
         response=""
-    return render(request, 'event/create.html', {'form': form, 'response': response})
+    return render(request, 'event_view/create.html', {'form': form, 'response': response})

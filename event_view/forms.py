@@ -20,3 +20,9 @@ class CreateEventForm(forms.ModelForm):
             'Location',
             'Notes',
         )
+        widgets = {
+            'StartDate': forms.DateTimeInput(attrs={'type':'date'}),
+            'EndDate': forms.DateTimeInput(attrs={'type':'date'}),
+            'StartTime': forms.TimeInput(attrs={'type':'time'}),
+            'EndTime': forms.TimeInput(attrs={'type':'time'}),
+        }

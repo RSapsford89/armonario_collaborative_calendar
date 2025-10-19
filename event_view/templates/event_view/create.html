@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+{% comment " This skeleton code is taken from a YouTube Tutorial by DaveGray www.youtube.com/watch?v=DIFaOkxy6TE " %}{% endcomment %}
+    <section>
+        <h1>Create an Event</h1>
+        <form action="/event/create/" method="post" class="form-with-validation">
+            {% csrf_token %}
+            {{form}}
+            <button>Submit</button>
+        </form>
+    </section>
+    <h2>{{response}}</h2>
+{% endblock content %}
