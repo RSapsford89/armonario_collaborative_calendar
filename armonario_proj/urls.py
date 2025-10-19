@@ -25,4 +25,5 @@ urlpatterns = [
     path('calendar/', calendar_view.index, name='calendar'),
     path('group/', include('group_profile.urls', namespace='group')),
     path('user/', include('user_profile.urls', namespace='user')),
+    path('event/', include('event_view.urls', namespace='event')),
 ]
