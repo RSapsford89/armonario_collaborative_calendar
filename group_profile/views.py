@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
 # Create your views here.
+@login_required
 def create_group(request):
     print("create_group view called")
     if request.method == 'POST':
@@ -12,10 +13,15 @@ def create_group(request):
         print("form called")
         if form.is_valid():
             form.save()
-            return redirect("home")
+            response = "Group created."
+            form = CreateGroupForm()
+        else:
+            response="Unable to create that Group"
+
     else:
         form = CreateGroupForm()
-    return render(request, 'group_profile/create.html', {'form': form})
+        response=""
+    return render(request, 'group_profile/create.html', {'form': form, 'response': response})
 
 @login_required
 def list_group(request):
