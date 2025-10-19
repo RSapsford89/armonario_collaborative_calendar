@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Armonario - Collaborative Calendars</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     
 </head>
@@ -23,12 +23,13 @@
                     {% if user.is_authenticated %}
                         <ul><a href="{% url "user:profile" %}">{{user.username}} 's Profile</a></ul>
                         <ul><a href="{% url "user:logout" %}">Log out {{user.username}}</a></ul>
+                        <ul><a href="{% url "group:create" %}">Create a Group</a></ul>
+                        <ul><a href="{% url "group:join" %}">Join a Group</a></ul>
+                        <ul><a href="{% url "event:create" %}">Create Event</a></ul>
                     {% else %}
                         <ul><a href="{% url "user:login" %}">Log in</a></ul>
                         <ul><a href="{% url "user:register" %}">Register</a></ul>
                     {% endif %}
-                        <ul><a href="{% url "group:create" %}">Create a Group</a></ul>
-                        <ul><a href="{% url "group:join" %}">Join a Group</a></ul>
                     {% comment %} <ul><a href="{% url "" %}">About</a></ul> {% endcomment %}
                     {% comment %} <ul><a href="{% url "" %}"></a></ul> {% endcomment %}
                     
