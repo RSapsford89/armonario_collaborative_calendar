@@ -1,5 +1,6 @@
 from django import forms
 from event_view.models import Event
+from user_profile.models import CustomUser
 
 class CreateEventForm(forms.ModelForm):
     """
