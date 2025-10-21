@@ -10,9 +10,7 @@ class CreateGroupForm(forms.ModelForm):
     class Meta():
         model = GroupProfile
         fields = (
-            'GroupName',
-            'GroupColour',
-            'GroupShareCode'
+            'GroupName','GroupColour','GroupShareCode'
             )
         widgets = {
             'GroupColour': forms.ColorInput(),

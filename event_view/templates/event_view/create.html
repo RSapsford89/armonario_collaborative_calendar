@@ -5,7 +5,9 @@
         <h1>Create an Event</h1>
         <form action="/event/create/" method="post" class="form-with-validation">
             {% csrf_token %}
-            {{form}}
+            {{eform}}
+            {{uform}}
+            
             <button>Submit</button>
         </form>
     </section>

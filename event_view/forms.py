@@ -1,29 +1,33 @@
 from django import forms
-from event_view.models import Event
-from user_profile.models import CustomUser
+from django.forms import formset_factory
+from event_view.models import Event, UserEventLink
+
 
 class CreateEventForm(forms.ModelForm):
     """
     Form contents to render in view for
     creating Events
     """
+    
     class Meta():
         model = Event
-        fields =(
-            'EventName',
-            'PrivateEvent',
-            'GroupEvent',
-            #'GroupId',
-            'StartDate',
-            'EndDate',
-            'StartTime',
-            'EndTime',
-            'Location',
-            'Notes',
+        fields =('EventName','PrivateEvent','GroupEvent',
+            'StartDate','EndDate','StartTime','EndTime',
+            'Location','Notes', #'GroupId',
         )
         widgets = {
-            'StartDate': forms.DateTimeInput(attrs={'type':'date'}),
-            'EndDate': forms.DateTimeInput(attrs={'type':'date'}),
-            'StartTime': forms.TimeInput(attrs={'type':'time'}),
-            'EndTime': forms.TimeInput(attrs={'type':'time'}),
+            'StartDate': forms.DateTimeInput(attrs={'type': 'date'}),
+            'EndDate': forms.DateTimeInput(attrs={'type': 'date'}),
+            'StartTime': forms.TimeInput(attrs={'type': 'time'}),
+            'EndTime': forms.TimeInput(attrs={'type': 'time'}),
         }
+
+
+class AddUsersForm(forms.ModelForm):
+    """
+    Form for adding users to an Event or Group
+    Use formsets in required view 
+    """
+    class Meta():
+        model = UserEventLink
+        fields = ['customUser']
