@@ -17,12 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
-from calendar_view import views as calendar_view
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.homepage, name='home'),
-    path('calendar/', calendar_view.index, name='calendar'),
+    path('calendar/', include('calendar_view.urls', namespace='calendar')),
     path('group/', include('group_profile.urls', namespace='group')),
     path('user/', include('user_profile.urls', namespace='user')),
     path('event/', include('event_view.urls', namespace='event')),
