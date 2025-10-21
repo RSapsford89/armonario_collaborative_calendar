@@ -27,7 +27,6 @@ def create_event(request):
             eform = CreateEventForm()
         else:
             response = "Unable to create that Event"
-
     else:
         eform = CreateEventForm()
         uform = AddUsersForm(prefix='inviteUsers')

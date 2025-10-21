@@ -16,8 +16,8 @@ class CreateEventForm(forms.ModelForm):
             'Location','Notes', #'GroupId',
         )
         widgets = {
-            'StartDate': forms.DateTimeInput(attrs={'type': 'date'}),
-            'EndDate': forms.DateTimeInput(attrs={'type': 'date'}),
+            'StartDate': forms.DateInput(attrs={'type': 'date'}),
+            'EndDate': forms.DateInput(attrs={'type': 'date'}),
             'StartTime': forms.TimeInput(attrs={'type': 'time'}),
             'EndTime': forms.TimeInput(attrs={'type': 'time'}),
         }

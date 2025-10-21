@@ -12,7 +12,9 @@
                 <h3>{{eventDetails.event.StartTime}} to {{eventDetails.event.EndTime}}</h3>
                 <p>{{eventDetails.event.Notes}}<p>
                 <p>{{eventDetails.status}}</p>
-                <button>Edit Event ✍</button>
+                <a href="{% url "calendar:edit_event" eventDetails.event.id %}">
+                    <button>Edit Event ✍</button>                
+                </a>
             </div>
         {% endfor %}
     </div>

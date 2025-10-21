@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section>
+    <h1>Event: {{event.EventName}}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit">Update Event</button>
+    </form>
+    
+</section>
+{% endblock content %}
+

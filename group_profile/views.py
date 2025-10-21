@@ -7,10 +7,8 @@ from django.db.models import Q
 # Create your views here.
 @login_required
 def create_group(request):
-    print("create_group view called")
     if request.method == 'POST':
         form = CreateGroupForm(request.POST)
-        print("form called")
         if form.is_valid():
             form.save()
             response = "Group created."
@@ -35,8 +33,7 @@ def list_group(request):
     response=""
     if request.method == "POST":
         group_query = request.POST.get("group_search","")
-        sharecode_query = request.POST.get("sharecode_test", "")
-        
+        sharecode_query = request.POST.get("sharecode_test", "")        
         if not group_query or not sharecode_query:
             print(group_query)
             response = "Request to join failed - Enter the exact name and sharecode again"
