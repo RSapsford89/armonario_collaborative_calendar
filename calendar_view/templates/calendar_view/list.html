@@ -3,17 +3,19 @@
 {% block content %}
 <section>
     <h1>Your Events</h1>
-
-    {% for eventDetails in events %}
-        <h2>{{eventDetails.event.EventName}}</h2>
-        <h3>{{eventDetails.event.StartDate}}</h3>
-        <h3>{{eventDetails.event.EndDate}}</h3>
-        <h3>{{eventDetails.event.StartTime}}</h3>
-        <h3>{{eventDetails.event.EndTime}}</h3>
-        <h3>{{eventDetails.event.Notes}}</h3>
-        <h3>{{eventDetails.status}}</h3>
-    {% endfor %}
-
+    <div class="accordion-container">    
+        {% for eventDetails in events %}
+            <button class="accordion-button">{{eventDetails.event.EventName}}</button>
+            <div class="accordion">                
+                <h2>{{eventDetails.event.EventName}}</h2>
+                <h3>{{eventDetails.event.StartDate}} to {{eventDetails.event.EndDate}}</h3>
+                <h3>{{eventDetails.event.StartTime}} to {{eventDetails.event.EndTime}}</h3>
+                <p>{{eventDetails.event.Notes}}<p>
+                <p>{{eventDetails.status}}</p>
+                <button>Edit Event ✍</button>
+            </div>
+        {% endfor %}
+    </div>
 </section>
 {% endblock content %}
 
