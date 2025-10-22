@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from event_view.models import Event, UserEventLink
 from event_view.forms import CreateEventForm
@@ -28,3 +30,16 @@ def edit_event(request, event_id):
         response="Something went wrong..."
         form = CreateEventForm(instance=event)
     return render(request, 'calendar_view/edit_event.html', {'form': form, 'event': event, 'response': response})
+
+
+#based on the delete event here: https://www.w3schools.com/django/django_delete_record.php
+#but utilises the edit_event code above.
+def delete_event(request,event_id):
+    """
+    Event PK is passed on button press. Look for
+    the Event, or 404. if found, delete the event and
+    immediately redirect to the same list page.
+    """
+    event = get_object_or_404(Event,pk=event_id)
+    event.delete()
+    return HttpResponseRedirect(reverse('calendar:list'))
