@@ -9,6 +9,8 @@
         {{form}}
         <button type="submit">Update Event</button>
     </form>
+    {% for user in eventDetails.event.customUser %}{% endfor %}
+    <p>Attending: {{user}}</p>
     
 </section>
 {% endblock content %}
