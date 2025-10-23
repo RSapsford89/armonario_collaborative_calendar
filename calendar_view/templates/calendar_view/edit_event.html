@@ -3,19 +3,7 @@
 {% block content %}
 <section>
     <h1>Event: {{event.EventName}}</h1>
-    <div> 
-        <ul>        
-            Attending:
-        {% for item in linkedUsers %}
-        <li>
-            {{item.user.username}}
-        </li>
-        {%empty%}
-            <li>No one is linked to this event</li>
-        {% endfor %}
-        
-        </ul>
-    </div>
+    
     <form method="post">
         {% csrf_token %}
         {{event_form}}

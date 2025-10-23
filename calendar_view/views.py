@@ -15,11 +15,16 @@ def list_events(request):
     Paginator paginates based on events with 3 per page.
     """
     username =  request.user
-    events = UserEventLink.objects.filter(customUser=username)
+    events = UserEventLink.objects.filter(customUser=username).order_by('event__StartDate')
     paginator = Paginator(events,3)
     page_number= request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    return render(request, 'calendar_view/list.html', {'events': events, 'page_obj': page_obj})
+
+    for link in page_obj.object_list:
+        linkedUsers = UserEventLink.objects.filter(event=link.event).select_related('customUser')
+        # attach a list of user objects so template can use attendee.username
+        link.attendees = [linked.customUser for linked in linkedUsers]
+    return render(request, 'calendar_view/list.html', { 'page_obj': page_obj})
 
 
 @login_required
@@ -39,7 +44,7 @@ def edit_event(request, event_id):
             'user': userLink.customUser,
         }        
         linkedUsers.append(item)
-    user_link, created = UserEventLink.objects.get_or_create(customUser=request.user, event=event)
+    user_link = UserEventLink.objects.get_or_create(customUser=request.user, event=event)
     if request.method == 'POST':
         event_form = CreateEventForm(request.POST, instance=event)
         status_form = UpdateStatusForm(request.POST, instance=user_link)

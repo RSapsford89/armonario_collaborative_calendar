@@ -6,12 +6,31 @@
 
     <hr>
     {% comment %} Pagination happens here. From doc: https://docs.djangoproject.com/en/5.2/topics/pagination/ {% endcomment %}
-    {% for event in page_obj %}
+    {% for event in page_obj %}    
     
-    {% comment %} {{ event.event.EventName|upper }}<br> {% endcomment %}
     <div class="accordion-container">    
+        {% if event.status == 4 %}
+    
+        <button class="accordion-button event-declined">{{event.event.EventName|upper}}</button>
+        {% else %}
+        <button class="accordion-button">{{event.event.EventName|upper}}</button>
         
-            <button class="accordion-button">{{event.event.EventName|upper}}</button>
+        {% endif %}
+        <div> 
+        <ul>        
+            Invited:
+        {% for attendee in event.attendees %}
+        <li>
+            {{attendee.username}}
+        </li>
+        {%empty%}
+            <li>No one is linked to this event</li>
+        {% endfor %}
+        
+        </ul>
+    </div>
+        
+        </ul>
             <div class="accordion">                
                 <h2>{{event.event.EventName}}</h2>
                 <h3>{{event.event.StartDate}} to {{event.event.EndDate}}</h3>
