@@ -17,7 +17,7 @@
                 <h3>{{event.event.StartDate}} to {{event.event.EndDate}}</h3>
                 <h3>{{event.event.StartTime}} to {{event.event.EndTime}}</h3>
                 <p>{{event.event.Notes}}<p>
-                <p>{{event.status}}</p>
+                <p>{{event.get_status_display}} {{linkedUsers.status}}</p>
                 
                 <a href="{% url 'calendar:delete_event' event.event.id %}">
                     <button>Delete Event 💣</button>                

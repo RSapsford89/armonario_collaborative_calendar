@@ -6,18 +6,18 @@ from django.contrib.auth.decorators import login_required
 from event_view.models import Event, UserEventLink
 from event_view.forms import CreateEventForm
 # Create your views here.
-# @login_required
-# def list_events(request):
-#     username =  request.user
-#     events = UserEventLink.objects.filter(customUser=username)
-    
-#     return render(request, 'calendar_view/list.html', {'events': events})
+
 
 @login_required
 def list_events(request):
+    """
+    list_events filters for username's events.
+    Paginator paginates based on events with 3 per page.
+    """
     username =  request.user
     events = UserEventLink.objects.filter(customUser=username)
-    paginator = Paginator(events,3)#show 3 events per page?
+    status = events.status.get_status_display()
+    paginator = Paginator(events,3)
     page_number= request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(request, 'calendar_view/list.html', {'events': events, 'page_obj': page_obj})
@@ -36,7 +36,8 @@ def edit_event(request, event_id):
     linkedUsers =[]
     for userLink in eventLink:
         item = {
-            'user': userLink.customUser 
+            'user': userLink.customUser ,
+            'status': userLink.get_status_display()
         }        
         linkedUsers.append(item)
 
