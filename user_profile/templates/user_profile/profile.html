@@ -9,19 +9,20 @@
         <li>{{user.last_name}}</li>
         <li>{{user.phone_number}}</li>
         <li>{{user.location}}</li>
-        <div> 
-        <ul>        
-            You are a part of these Groups:
+        <div class="accordion-container">    
         {% for item in linkedGroups %}
-        <li>
-            {{item.group.GroupName}}
-        </li>
-        {%empty%}
-            <li>No one is linked to this event</li>
+            <button class="accordion-button">{{item.group}}</button>
+            <div class="accordion">                
+                <h2>{{item.GroupName}}</h2>                
+                <a href="{% url 'group:leave' item.group.id %}">
+                    <button>Leave Group 💣</button>                
+                </a>               
+            </div>
+        {% empty %}
+            <h2>You're not in any groups yet</h2>
         {% endfor %}
-        
-        </ul>
     </div>
+        
         <a href="{% url "user:edit_view" user.id %}">
             <button>Edit Profile ✍</button>
         </a>

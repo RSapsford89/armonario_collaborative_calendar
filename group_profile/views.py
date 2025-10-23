@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from .forms import CreateGroupForm
-from .models import GroupProfile
+from .models import GroupProfile, UserGroupLink
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
@@ -20,6 +22,19 @@ def create_group(request):
         form = CreateGroupForm()
         response=""
     return render(request, 'group_profile/create.html', {'form': form, 'response': response})
+
+
+def leave_group(request,group_id):
+    """
+    Group PK is passed on button press. Look for
+    the Group, or 404. if found, delete the event and
+    immediately redirect to the same list page.
+    """
+    group = get_object_or_404(GroupProfile, pk=group_id)
+    UserGroupLink.objects.filter(customUser=request.user, groupProfile=group).delete()
+    
+    return HttpResponseRedirect(reverse('user:profile'))
+
 
 @login_required
 def list_group(request):
