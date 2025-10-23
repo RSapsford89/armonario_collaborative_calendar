@@ -18,11 +18,21 @@
     </div>
     <form method="post">
         {% csrf_token %}
-        {{form}}
-        <button type="submit">Update Event</button>
+        {{event_form}}
+        <button type="submit" name="save_event">Update Event</button>
     </form>
-    
+
     
 </section>
+
+<section>
+        <form method="post">
+            {% csrf_token %}
+            {{ status_form }}
+            <button type="submit">Update status</button>
+        </form>
+        
+</section>
+<hr>
 {% endblock content %}
 

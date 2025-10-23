@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from event_view.models import Event, UserEventLink
-from event_view.forms import CreateEventForm
+from event_view.forms import CreateEventForm, UpdateStatusForm
 # Create your views here.
 
 
@@ -16,7 +16,6 @@ def list_events(request):
     """
     username =  request.user
     events = UserEventLink.objects.filter(customUser=username)
-    status = events.status.get_status_display()
     paginator = Paginator(events,3)
     page_number= request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -33,24 +32,33 @@ def edit_event(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
 
     eventLink = UserEventLink.objects.filter(event=event).select_related('customUser')
+    
     linkedUsers =[]
     for userLink in eventLink:
         item = {
-            'user': userLink.customUser ,
-            'status': userLink.get_status_display()
+            'user': userLink.customUser,
         }        
         linkedUsers.append(item)
-
+    user_link, created = UserEventLink.objects.get_or_create(customUser=request.user, event=event)
     if request.method == 'POST':
-        form = CreateEventForm(request.POST, instance=event)
-        if form.is_valid():
-            form.save()
+        event_form = CreateEventForm(request.POST, instance=event)
+        status_form = UpdateStatusForm(request.POST, instance=user_link)
+
+        if status_form.is_valid():
+            status_form.save()
+            response = "Status updated."
+            return redirect('calendar:edit_event', event_id=event_id)
+        
+        if event_form.is_valid():            
+            event_form.save()
             response="Update saved."
             return redirect('calendar:list')
     else:
         response="Something went wrong..."
-        form = CreateEventForm(instance=event)
-    return render(request, 'calendar_view/edit_event.html', {'form': form, 'event': event, 'response': response,'linkedUsers': linkedUsers,})
+        event_form = CreateEventForm(instance=event)
+        status_form= UpdateStatusForm(instance=user_link)
+        
+    return render(request, 'calendar_view/edit_event.html', {'event_form': event_form, 'status_form':status_form,  'event': event, 'response': response,'linkedUsers': linkedUsers,})
 
 
 #based on the delete event here: https://www.w3schools.com/django/django_delete_record.php

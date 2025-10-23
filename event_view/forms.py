@@ -31,3 +31,13 @@ class AddUsersForm(forms.ModelForm):
     class Meta():
         model = UserEventLink
         fields = ['customUser']
+
+
+class UpdateStatusForm(forms.ModelForm):
+    """
+    Form for letting a user change their status on 
+    UserEventLink events
+    """
+    class Meta:
+        model = UserEventLink
+        fields = ['status']
