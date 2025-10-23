@@ -11,7 +11,7 @@
         <li>{{user.location}}</li>
         <div class="accordion-container">    
         {% for item in linkedGroups %}
-            <button class="accordion-button">{{item.group}}</button>
+            <button class="accordion-button" style="color:{{item.GroupColour}};">{{item.group}}</button>
             <div class="accordion">                
                 <h2>{{item.GroupName}}</h2>
                 <p>The sharecode is: {{item.GroupShareCode}}</p>                

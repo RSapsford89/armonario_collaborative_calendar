@@ -3,24 +3,46 @@
 {% block content %}
 <section>
     <h1>Your Events</h1>
+
+    <hr>
+    {% comment %} Pagination happens here. From doc: https://docs.djangoproject.com/en/5.2/topics/pagination/ {% endcomment %}
+    {% for event in page_obj %}
+    
+    {% comment %} {{ event.event.EventName|upper }}<br> {% endcomment %}
     <div class="accordion-container">    
-        {% for eventDetails in events %}
-            <button class="accordion-button">{{eventDetails.event.EventName}}</button>
+        
+            <button class="accordion-button">{{event.event.EventName|upper}}</button>
             <div class="accordion">                
-                <h2>{{eventDetails.event.EventName}}</h2>
-                <h3>{{eventDetails.event.StartDate}} to {{eventDetails.event.EndDate}}</h3>
-                <h3>{{eventDetails.event.StartTime}} to {{eventDetails.event.EndTime}}</h3>
-                <p>{{eventDetails.event.Notes}}<p>
-                <p>{{eventDetails.status}}</p>
+                <h2>{{event.event.EventName}}</h2>
+                <h3>{{event.event.StartDate}} to {{event.event.EndDate}}</h3>
+                <h3>{{event.event.StartTime}} to {{event.event.EndTime}}</h3>
+                <p>{{event.event.Notes}}<p>
+                <p>{{event.status}}</p>
                 
-                <a href="{% url 'calendar:delete_event' eventDetails.event.id %}">
+                <a href="{% url 'calendar:delete_event' event.event.id %}">
                     <button>Delete Event 💣</button>                
                 </a>
-                <a href="{% url "calendar:edit_event" eventDetails.event.id %}">
+                <a href="{% url "calendar:edit_event" event.event.id %}">
                     <button>Edit Event ✍</button>                
                 </a>
             </div>
-        {% endfor %}
+        
+    </div>
+    
+{% endfor %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo;first</a>
+            <a href="?page={{page_obj.previous_page_number}}">previous</a>
+        {% endif %}
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
     </div>
 </section>
 <script>

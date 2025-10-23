@@ -38,7 +38,8 @@ def profile_view(request):
     for link in groupLinks:
         item={
             'group':link.groupProfile,
-            'GroupShareCode':link.groupProfile.GroupShareCode
+            'GroupShareCode':link.groupProfile.GroupShareCode,
+            'GroupColour': link.groupProfile.GroupColour
         }
         linkedGroups.append(item)
 
