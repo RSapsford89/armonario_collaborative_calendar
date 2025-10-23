@@ -13,7 +13,8 @@
         {% for item in linkedGroups %}
             <button class="accordion-button">{{item.group}}</button>
             <div class="accordion">                
-                <h2>{{item.GroupName}}</h2>                
+                <h2>{{item.GroupName}}</h2>
+                <p>The sharecode is: {{item.GroupShareCode}}</p>                
                 <a href="{% url 'group:leave' item.group.id %}">
                     <button>Leave Group 💣</button>                
                 </a>               
