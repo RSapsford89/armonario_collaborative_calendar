@@ -12,7 +12,8 @@ def create_group(request):
     if request.method == 'POST':
         form = CreateGroupForm(request.POST)
         if form.is_valid():
-            form.save()
+            group=form.save()
+            UserGroupLink.objects.create(customUser=request.user, groupProfile=group, status=1)
             response = "Group created."
             form = CreateGroupForm()
         else:

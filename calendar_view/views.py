@@ -26,8 +26,7 @@ def edit_event(request, event_id):
     for userLink in eventLink:
         item = {
             'user': userLink.customUser 
-        }
-        
+        }        
         linkedUsers.append(item)
 
     if request.method == 'POST':

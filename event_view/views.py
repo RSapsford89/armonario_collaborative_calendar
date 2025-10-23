@@ -11,7 +11,6 @@ def create_event(request):
     if request.method == 'POST':
         eform = CreateEventForm(request.POST)
         uform = AddUsersForm(request.POST, prefix='inviteUsers')
-        print("eform called")
         if eform.is_valid() and uform.is_valid():
             event = eform.save()
             eventLink = uform.save(commit=False)
