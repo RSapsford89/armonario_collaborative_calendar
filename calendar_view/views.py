@@ -9,7 +9,7 @@ from event_view.forms import CreateEventForm
 def list_events(request):
     username =  request.user
     events = UserEventLink.objects.filter(customUser=username)
-
+    
     return render(request, 'calendar_view/list.html', {'events': events})
 
 @login_required
@@ -20,6 +20,16 @@ def edit_event(request, event_id):
     """
     response=""
     event = get_object_or_404(Event, pk=event_id)
+
+    eventLink = UserEventLink.objects.filter(event=event).select_related('customUser')
+    linkedUsers =[]
+    for userLink in eventLink:
+        item = {
+            'user': userLink.customUser 
+        }
+        
+        linkedUsers.append(item)
+
     if request.method == 'POST':
         form = CreateEventForm(request.POST, instance=event)
         if form.is_valid():
@@ -29,7 +39,7 @@ def edit_event(request, event_id):
     else:
         response="Something went wrong..."
         form = CreateEventForm(instance=event)
-    return render(request, 'calendar_view/edit_event.html', {'form': form, 'event': event, 'response': response})
+    return render(request, 'calendar_view/edit_event.html', {'form': form, 'event': event, 'response': response,'linkedUsers': linkedUsers,})
 
 
 #based on the delete event here: https://www.w3schools.com/django/django_delete_record.php

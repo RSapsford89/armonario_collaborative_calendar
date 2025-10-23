@@ -12,6 +12,7 @@
                 <h3>{{eventDetails.event.StartTime}} to {{eventDetails.event.EndTime}}</h3>
                 <p>{{eventDetails.event.Notes}}<p>
                 <p>{{eventDetails.status}}</p>
+                
                 <a href="{% url 'calendar:delete_event' eventDetails.event.id %}">
                     <button>Delete Event 💣</button>                
                 </a>

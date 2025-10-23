@@ -16,6 +16,7 @@ def register_view(request):
         form = CustomUserForm()
     return render(request, 'user_profile/register.html', {'form': form})
 
+
 def login_view(request):
     if request.method == "POST":
         # pass the request so AuthenticationForm can access request-specific
@@ -28,27 +29,28 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'user_profile/login.html', {"form": form})
 
+
 def profile_view(request):
     return render(request, 'user_profile/profile.html')
+
 
 @login_required
 def edit_view(request, user_id):
     """
-    Edit the user profile view.
+    Edit the user profile view. CustomUserFormEdit
+    has no password or username field to edit.
     """
-    response=""
     user = get_object_or_404(CustomUser, pk=user_id)
 
     if request.method == 'POST':
         form = CustomUserFormEdit(request.POST, instance=user,)
         if form.is_valid():
             form.save()
-            response="Update saved."
             return redirect('user:profile')
     else:
-        response="Something went wrong..."
         form = CustomUserFormEdit(instance=user, )
     return render(request, 'user_profile/edit.html', {'form': form, 'user': user})
+
 
 def logout_view(request):
     logout(request)
