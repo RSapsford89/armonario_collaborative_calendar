@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import CustomUserForm
+from django.contrib.auth.decorators import login_required
+from .forms import CustomUserForm, CustomUserFormEdit
+from user_profile.models import CustomUser
 from django.contrib.auth import login, logout
 # Create your views here.
 
@@ -28,6 +30,25 @@ def login_view(request):
 
 def profile_view(request):
     return render(request, 'user_profile/profile.html')
+
+@login_required
+def edit_view(request, user_id):
+    """
+    Edit the user profile view.
+    """
+    response=""
+    user = get_object_or_404(CustomUser, pk=user_id)
+
+    if request.method == 'POST':
+        form = CustomUserFormEdit(request.POST, instance=user,)
+        if form.is_valid():
+            form.save()
+            response="Update saved."
+            return redirect('user:profile')
+    else:
+        response="Something went wrong..."
+        form = CustomUserFormEdit(instance=user, )
+    return render(request, 'user_profile/edit.html', {'form': form, 'user': user})
 
 def logout_view(request):
     logout(request)
