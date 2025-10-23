@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CustomUserForm, CustomUserFormEdit
 from user_profile.models import CustomUser
 from django.contrib.auth import login, logout
+from group_profile.models import UserGroupLink
 # Create your views here.
 
 def register_view(request):
@@ -29,9 +30,18 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'user_profile/login.html', {"form": form})
 
-
+@login_required
 def profile_view(request):
-    return render(request, 'user_profile/profile.html')
+    user = request.user
+    groupLinks = UserGroupLink.objects.filter(customUser=user).select_related('groupProfile')
+    linkedGroups=[]
+    for link in groupLinks:
+        item={
+            'group':link.groupProfile
+        }
+        linkedGroups.append(item)
+
+    return render(request, 'user_profile/profile.html',{'linkedGroups': linkedGroups})
 
 
 @login_required

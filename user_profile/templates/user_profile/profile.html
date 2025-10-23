@@ -9,6 +9,19 @@
         <li>{{user.last_name}}</li>
         <li>{{user.phone_number}}</li>
         <li>{{user.location}}</li>
+        <div> 
+        <ul>        
+            You are a part of these Groups:
+        {% for item in linkedGroups %}
+        <li>
+            {{item.group.GroupName}}
+        </li>
+        {%empty%}
+            <li>No one is linked to this event</li>
+        {% endfor %}
+        
+        </ul>
+    </div>
         <a href="{% url "user:edit_view" user.id %}">
             <button>Edit Profile ✍</button>
         </a>

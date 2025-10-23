@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-#from group_profile.models import GroupProfile
-
 # Create your models here.
 
 
