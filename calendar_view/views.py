@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from event_view.models import Event, UserEventLink
 from event_view.forms import CreateEventForm, AddUsersForm, UpdateStatusForm
+from group_profile.models import UserGroupLink
 # Create your views here.
 
 
@@ -25,8 +26,19 @@ def list_events(request):
         linkedUsers = UserEventLink.objects.filter(event=link.event).select_related('customUser')
         # attach a list of user objects so template can use attendee.username
         link.attendees = [linked.customUser for linked in linkedUsers]
+
+    #taken from the event list view to show the user's groups...
+    groupLinks = UserGroupLink.objects.filter(customUser=username).select_related('groupProfile')
+    linkedGroups = []
+    for link in groupLinks:
+        item = {
+            'group': link.groupProfile,
+            'GroupShareCode': link.groupProfile.GroupShareCode,
+            'GroupColour': link.groupProfile.GroupColour
+        }
+        linkedGroups.append(item)
         
-    return render(request, 'calendar_view/list.html', {'page_obj': page_obj})
+    return render(request, 'calendar_view/list.html', {'page_obj': page_obj,})
 
 
 @login_required
@@ -37,7 +49,7 @@ def edit_event(request, event_id):
     """
     response = ""
     event = get_object_or_404(Event, pk=event_id)
-
+    # used AI here to fix an issue with the object being or not being a tuple...
     # unpack get_or_create -> user_link is the model instance
     user_link, created = UserEventLink.objects.get_or_create(customUser=request.user, event=event)
 
@@ -49,11 +61,11 @@ def edit_event(request, event_id):
         event_form = CreateEventForm(request.POST, instance=event)
         status_form = UpdateStatusForm(request.POST, instance=user_link)
 
-        # handle status update first
+        # update user status, stay on edit page
         if status_form.is_valid():
             status_form.save()
             return redirect('calendar:edit_event', event_id=event_id)
-
+        #submit form changes, return to list
         if event_form.is_valid():
             event_form.save()
             return redirect('calendar:list')
