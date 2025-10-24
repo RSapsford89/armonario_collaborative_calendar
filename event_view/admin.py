@@ -16,8 +16,8 @@ class EventProfileAdmin(admin.ModelAdmin):
             )
     
 class UserEventProfileAdmin(admin.ModelAdmin):
-    list_display=['customUser','event','status']
+    list_display = ('customUser', 'event', 'status')
 
 
 admin.site.register(Event, EventProfileAdmin)
-admin.site.register(UserEventLink,UserEventProfileAdmin)
+admin.site.register(UserEventLink, UserEventProfileAdmin)

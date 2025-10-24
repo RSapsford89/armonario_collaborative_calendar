@@ -4,6 +4,11 @@
 <section>
     {% if user.is_authenticated %}
         <h1>{{user}} Profile</h1>
+        {% if user.picture %}
+            <img src="{{user.picture.url}}" alt="Profile" style="max-width:200px">
+            {% else %}
+            <img src="{% static 'images/default_profile.webp' %}" alt="Profile" style="max-width:200px">
+            {% endif %}
         <li>{{user.email}}</li>
         <li>{{user.first_name}}</li>
         <li>{{user.last_name}}</li>

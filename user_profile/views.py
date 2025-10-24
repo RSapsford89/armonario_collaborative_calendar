@@ -55,7 +55,7 @@ def edit_view(request, user_id):
     user = get_object_or_404(CustomUser, pk=user_id)
 
     if request.method == 'POST':
-        form = CustomUserFormEdit(request.POST, instance=user,)
+        form = CustomUserFormEdit(request.POST, request.FILES, instance=user,)
         if form.is_valid():
             form.save()
             return redirect('user:profile')

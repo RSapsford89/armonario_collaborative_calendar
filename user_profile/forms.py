@@ -19,21 +19,13 @@ class CustomUserForm(UserCreationForm):
         model = User
         fields = ('username','first_name','last_name', 'location', 'phone_number','email','password1','password2')
 
-    # def __init__(self, *args, **kwargs):
-    #     optional_pword = kwargs.pop('optional_pword', False)
-    #     super().__init__(*args, **kwargs)
-    #     if optional_pword:
-    #         self.fields['password1'].required = False
-    #         self.fields['password2'].required = False
-    #         self.fields['username'].required = False
-    #         self.fields['username'].disabled = True
-    
+
 class CustomUserFormEdit(forms.ModelForm):
     email = forms.EmailField(required=True)
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'location', 'phone_number', 'email')
+        fields = ('first_name', 'last_name', 'location', 'phone_number', 'email', 'picture')
         widgets = {
             'first_name': forms.TextInput(attrs={'maxlength': 50}),
             'last_name': forms.TextInput(attrs={'maxlength': 50}),

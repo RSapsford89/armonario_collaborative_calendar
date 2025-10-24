@@ -19,11 +19,13 @@ def list_events(request):
     paginator = Paginator(events,3)
     page_number= request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-
+    #generated this for loop with AI to get the linkedUsers to return the correct values and for
+    #the pythonic for loop
     for link in page_obj.object_list:
         linkedUsers = UserEventLink.objects.filter(event=link.event).select_related('customUser')
         # attach a list of user objects so template can use attendee.username
         link.attendees = [linked.customUser for linked in linkedUsers]
+        
     return render(request, 'calendar_view/list.html', { 'page_obj': page_obj})
 
 

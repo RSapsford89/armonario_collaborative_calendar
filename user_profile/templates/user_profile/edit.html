@@ -1,11 +1,18 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 {% comment " This skeleton code is based on a YouTube Tutorial by DaveGray www.youtube.com/watch?v=DIFaOkxy6TE " %}{% endcomment %}
     <section>
         <h1>Edit your profile</h1>
-        <form  method="post" class="form-with-validation">
+        {% comment %} the addition of the enctype from the tutorial linked in readme for profile images {% endcomment %}
+        <form  method="post" enctype="multipart/form-data" class="form-with-validation">
             {% csrf_token %}
+            {% if user.picture %}
+            <img src="{{user.picture.url}}" alt="Profile" style="max-width:200px">
+            {% else %} 
+            {% comment %} else was a suggested fix from AI if the site should not be able to fetch the image {% endcomment %}
+            <img src="{% static 'images/default_profile.webp' %}" alt="Profile" style="max-width:200px">
+            {% endif %}
             {{form}}
             
             <button>Update</button>
