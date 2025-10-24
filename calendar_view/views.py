@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from event_view.models import Event, UserEventLink
-from event_view.forms import CreateEventForm, UpdateStatusForm
+from event_view.forms import CreateEventForm, AddUsersForm, UpdateStatusForm
 # Create your views here.
 
 
@@ -14,10 +14,10 @@ def list_events(request):
     list_events filters for username's events.
     Paginator paginates based on events with 3 per page.
     """
-    username =  request.user
+    username = request.user
     events = UserEventLink.objects.filter(customUser=username).order_by('event__StartDate')
-    paginator = Paginator(events,3)
-    page_number= request.GET.get("page")
+    paginator = Paginator(events, 3)
+    page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     #generated this for loop with AI to get the linkedUsers to return the correct values and for
     #the pythonic for loop
@@ -26,56 +26,58 @@ def list_events(request):
         # attach a list of user objects so template can use attendee.username
         link.attendees = [linked.customUser for linked in linkedUsers]
         
-    return render(request, 'calendar_view/list.html', { 'page_obj': page_obj})
+    return render(request, 'calendar_view/list.html', {'page_obj': page_obj})
 
 
 @login_required
 def edit_event(request, event_id):
     """
-    Edit the event which has been selected from the list_event
-    view.
+    Edit event and allow the logged-in user to update their UserEventLink.status.
+    make sure get_or_create is unpacked into (obj, created).
     """
-    response=""
+    response = ""
     event = get_object_or_404(Event, pk=event_id)
 
-    eventLink = UserEventLink.objects.filter(event=event).select_related('customUser')
-    
-    linkedUsers =[]
-    for userLink in eventLink:
-        item = {
-            'user': userLink.customUser,
-        }        
-        linkedUsers.append(item)
-    user_link = UserEventLink.objects.get_or_create(customUser=request.user, event=event)
+    # unpack get_or_create -> user_link is the model instance
+    user_link, created = UserEventLink.objects.get_or_create(customUser=request.user, event=event)
+
+    # build attendees list for display
+    event_links_qs = UserEventLink.objects.filter(event=event).select_related('customUser')
+    linkedUsers = [{'user': link.customUser, 'status': link.get_status_display()} for link in event_links_qs]
+
     if request.method == 'POST':
         event_form = CreateEventForm(request.POST, instance=event)
         status_form = UpdateStatusForm(request.POST, instance=user_link)
 
+        # handle status update first
         if status_form.is_valid():
             status_form.save()
-            response = "Status updated."
             return redirect('calendar:edit_event', event_id=event_id)
-        
-        if event_form.is_valid():            
+
+        if event_form.is_valid():
             event_form.save()
-            response="Update saved."
             return redirect('calendar:list')
     else:
-        response="Something went wrong..."
         event_form = CreateEventForm(instance=event)
-        status_form= UpdateStatusForm(instance=user_link)
-        
-    return render(request, 'calendar_view/edit_event.html', {'event_form': event_form, 'status_form':status_form,  'event': event, 'response': response,'linkedUsers': linkedUsers,})
+        status_form = UpdateStatusForm(instance=user_link)
+
+    return render(request, 'calendar_view/edit_event.html', {
+        'event_form': event_form,
+        'status_form': status_form,
+        'event': event,
+        'response': response,
+        'linkedUsers': linkedUsers,
+    })
 
 
 #based on the delete event here: https://www.w3schools.com/django/django_delete_record.php
-#but utilises the edit_event code above.
-def delete_event(request,event_id):
+#but utilises the edit_event code above. request param required even though unused.
+def delete_event(request, event_id):
     """
     Event PK is passed on button press. Look for
     the Event, or 404. if found, delete the event and
     immediately redirect to the same list page.
     """
-    event = get_object_or_404(Event,pk=event_id)
+    event = get_object_or_404(Event, pk=event_id)
     event.delete()
     return HttpResponseRedirect(reverse('calendar:list'))
