@@ -14,9 +14,10 @@ class Event(models.Model):
     EventName = models.CharField(blank=False, max_length=128)
     PrivateEvent = models.BooleanField(blank=False, default=True)
     GroupEvent = models.BooleanField(blank=False, default=False)
-    #GroupId = 
+    # new: optional group link
+    group = models.ForeignKey('group_profile.GroupProfile', null=True, blank=True, on_delete=models.SET_NULL, related_name='events')
     StartDate = models.DateField(blank=False, default=todays_date)
-    EndDate =   models.DateField(blank=False, default=todays_date)
+    EndDate = models.DateField(blank=False, default=todays_date)
     StartTime = models.TimeField(blank=False)
     EndTime = models.TimeField(blank=False)
     Location = models.CharField(blank=True, default="Enter a place")

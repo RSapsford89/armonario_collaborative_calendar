@@ -4,41 +4,68 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from event_view.models import Event, UserEventLink
-from event_view.forms import CreateEventForm, AddUsersForm, UpdateStatusForm
-from group_profile.models import UserGroupLink
+from event_view.forms import CreateEventForm, UpdateStatusForm
 # Create your views here.
 
 
 @login_required
 def list_events(request):
     """
-    list_events filters for username's events.
-    Paginator paginates based on events with 3 per page.
+    List events the user is directly linked to (via UserEventLink)
+    AND events linked to groups the user is a member of (via event.group).
+    Paginate and attach attendees for each.
     """
-    username = request.user
-    events = UserEventLink.objects.filter(customUser=username).order_by('event__StartDate')
-    paginator = Paginator(events, 3)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    #generated this for loop with AI to get the linkedUsers to return the correct values and for
-    #the pythonic for loop
-    for link in page_obj.object_list:
-        linkedUsers = UserEventLink.objects.filter(event=link.event).select_related('customUser')
-        # attach a list of user objects so template can use attendee.username
-        link.attendees = [linked.customUser for linked in linkedUsers]
+    user = request.user
 
-    #taken from the event list view to show the user's groups...
-    groupLinks = UserGroupLink.objects.filter(customUser=username).select_related('groupProfile')
-    linkedGroups = []
-    for link in groupLinks:
-        item = {
-            'group': link.groupProfile,
-            'GroupShareCode': link.groupProfile.GroupShareCode,
-            'GroupColour': link.groupProfile.GroupColour
-        }
-        linkedGroups.append(item)
-        
-    return render(request, 'calendar_view/list.html', {'page_obj': page_obj,})
+    # 1) Events user is directly linked to
+    personal_links = (
+        UserEventLink.objects
+        .filter(customUser=user)
+        .select_related('event', 'event__group')
+        .order_by('event__StartDate', 'event__StartTime', 'pk')
+    )
+    personal_event_ids = {link.event.id for link in personal_links}
+
+    # 2) Events linked to groups the user is a member of (exclude already-listed personal events)
+    group_events = (
+        Event.objects
+        .filter(group__members=user)
+        .exclude(id__in=personal_event_ids)
+        .select_related('group')
+        .order_by('StartDate', 'StartTime', 'pk')
+    )
+
+    # 3) Build unified list of items for display
+    items = []
+
+    # add personal links
+    for link in personal_links:
+        attendees_qs = UserEventLink.objects.filter(event=link.event).select_related('customUser')
+        items.append({
+            'type': 'personal',
+            'event': link.event,
+            'user_status': link.get_status_display(),
+            'attendees': [a.customUser for a in attendees_qs],
+            'group': link.event.group,  # may be None
+        })
+
+    # add group events (no personal link)
+    for ev in group_events:
+        attendees_qs = UserEventLink.objects.filter(event=ev).select_related('customUser')
+        items.append({
+            'type': 'group',
+            'event': ev,
+            'user_status': None,  # user has no personal link
+            'attendees': [a.customUser for a in attendees_qs],
+            'group': ev.group,
+        })
+
+    # 4) Paginate the merged list
+    paginator = Paginator(items, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'calendar_view/list.html', {'page_obj': page_obj})
 
 
 @login_required
@@ -49,7 +76,6 @@ def edit_event(request, event_id):
     """
     response = ""
     event = get_object_or_404(Event, pk=event_id)
-    # used AI here to fix an issue with the object being or not being a tuple...
     # unpack get_or_create -> user_link is the model instance
     user_link, created = UserEventLink.objects.get_or_create(customUser=request.user, event=event)
 
@@ -58,7 +84,7 @@ def edit_event(request, event_id):
     linkedUsers = [{'user': link.customUser, 'status': link.get_status_display()} for link in event_links_qs]
 
     if request.method == 'POST':
-        event_form = CreateEventForm(request.POST, instance=event)
+        event_form = CreateEventForm(request.POST, instance=event, user=request.user)
         status_form = UpdateStatusForm(request.POST, instance=user_link)
 
         # update user status, stay on edit page
@@ -70,7 +96,7 @@ def edit_event(request, event_id):
             event_form.save()
             return redirect('calendar:list')
     else:
-        event_form = CreateEventForm(instance=event)
+        event_form = CreateEventForm(instance=event, user=request.user)
         status_form = UpdateStatusForm(instance=user_link)
 
     return render(request, 'calendar_view/edit_event.html', {

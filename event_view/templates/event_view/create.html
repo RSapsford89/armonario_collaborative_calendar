@@ -10,7 +10,7 @@
             <button>Submit</button>
         </form>
     </section>
-    {% comment %} {% for item in linkedGroups %}
+    {% for item in linkedGroups %}
             <button class="accordion-button" style="color:{{item.GroupColour}};">{{item.group}}</button>
             <div class="accordion">                
                 <h2>{{item.GroupName}}</h2>
@@ -21,6 +21,6 @@
             </div>
         {% empty %}
             <h2>You're not in any groups yet</h2>
-        {% endfor %} {% endcomment %}
+        {% endfor %}
     <h2>{{response}}</h2>
 {% endblock content %}
