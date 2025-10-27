@@ -7,40 +7,35 @@
     {% comment %} Pagination happens here. From doc: https://docs.djangoproject.com/en/5.2/topics/pagination/ {% endcomment %}
     {% for item in page_obj %}
     <div class="accordion-container">
-        {% if item.type == 'personal' %}
-            {% if item.user_status == 'declined' %}
-                <button class="accordion-button event-declined">{{ item.event.EventName|upper }} - Event Declined</button>
-            {% else %}
-                <button class="accordion-button">
-                    {{ item.event.EventName|upper }}
-                    {% if item.group %} (Group: {{ item.group.GroupName }}){% endif %}
-                </button>
-            {% endif %}
-        {% else %}
-            <button class="accordion-button">
-                {{ item.event.EventName|upper }} (Group: {{ item.group.GroupName }})
-            </button>
-        {% endif %}
-
-        <div>
-            <ul>
-                Invited:
-                {% for attendee in item.attendees %}
+        <input type="checkbox" id="accordion-{{ forloop.counter }}" class="accordion-button" />
+        <label for="accordion-{{ forloop.counter }}" 
+        class="{% if item.type == 'personal' and item.user_status == 'declined' %}event-declined{% endif %}"
+        >
+            {{ item.event.EventName|upper }}
+            {% if item.type == 'personal' and item.user_status == 'declined' %} - Event Declined{% endif %}
+            {% if item.group %} (Group: {{ item.group.GroupName }}){% endif %}
+        </label>
+        
+        <div class="accordion-content">
+            <h2>{{ item.event.EventName }}</h2>
+            <details>
+                <summary>Invited Attendees</summary>
+                <ul>
+                    {% for attendee in item.attendees %}
                     <li>{{ attendee.username }}</li>
-                {% empty %}
+                    {% empty %}
                     <li>No one is linked to this event</li>
-                {% endfor %}
-            </ul>
+                    {% endfor %}
+                </ul>
+            </details>
+            <h3>{{ item.event.StartDate }} to {{ item.event.EndDate }}</h3>
+            <h3>{{ item.event.StartTime }} to {{ item.event.EndTime }}</h3>
+            <p>{{ item.event.Notes }}</p>
+            {% if item.user_status %}
+                <p>Your status: {{ item.user_status }}</p>
+            {% endif %}
 
-            <div class="accordion">
-                <h2>{{ item.event.EventName }}</h2>
-                <h3>{{ item.event.StartDate }} to {{ item.event.EndDate }}</h3>
-                <h3>{{ item.event.StartTime }} to {{ item.event.EndTime }}</h3>
-                <p>{{ item.event.Notes }}</p>
-                {% if item.user_status %}
-                    <p>Your status: {{ item.user_status }}</p>
-                {% endif %}
-
+            <div class= "button-container">
                 <a href="{% url 'calendar:delete_event' item.event.id %}">
                     <button>Delete Event 💣</button>
                 </a>
@@ -48,6 +43,7 @@
                     <button>Edit Event ✍</button>
                 </a>
             </div>
+            
         </div>
     </div>
     {% empty %}

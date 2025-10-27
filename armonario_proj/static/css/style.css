@@ -7,6 +7,7 @@
   --cinnabar-color:#e44d2e;
   --rich-black-color:#001524;
   --vista-blue-color:#7f96ff;
+  --selective-yellow: #f7b801;
   --light-text-color:#FFFFFF;
   --dark-text-color:#000000;
 
@@ -25,6 +26,7 @@ p {
 body {
   margin: auto;
   width: 80%;
+  max-width: 1200px;
   /* border: red dashed; */
   font-family: var(--secondary-font);
   min-height: 100dvh;
@@ -112,29 +114,113 @@ img{
 .sticky{
   position: fixed;
   top: 0;
-
 }
 .img-block{
     /* width: 50%;
     height:100px; */
+    justify-self: center;
 }
 .text-div{
     /* width: 50%; */
+
 }
 .info-blocks{
 display: grid;
 grid-template-columns: repeat(auto-fit,minmax(200px, 1fr));
+justify-content: center;
+align-items: center;
+gap: 2rem 2rem;
+}
+.color-div-A{
+  background-color: var(--cinnabar-color);
+  padding: 3rem;
+  margin: 5%;
+}
+.color-div-B{
+  background-color: var(--vista-blue-color);
+  padding: 3rem;
+  margin: 5%;
 }
 .product-info{
     /* display: flex; */
-     margin: 50px 5px;
+    margin: 50px 5px;
 }
-#alternate-layout{
+/* Styling for Event List page */
+/* Accordion functional design from: https://supfort.com/pure-css-accordion-without-javascript */
+/* Accordion items */
+input{
+  display: none;
+}
+label{
+  display: block;
+  background-color: var(--cinnabar-color);
+  transition: ease .5s;
+}
+label:hover{
+  background: var(--selective-yellow);
+}
+input +label +.accordion-content{
+  display: none;
+}
+input:checked +label + .accordion-content{
+  display: block;
+}
+/* container */
+.accordion-container{
+  max-width: 800px;
+  border: 2px solid var(--selective-yellow);
+}
+/* each accordion section */
+.accordion-item{
+
+}
+/* accordion heading section/button */
+.accordion-header{
+
+}
+/* the inner content of the accordion */
+.accordion-content{
+  /* display: flex; */
+}
+.accordion-content .button-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+
+}
+.accordion-content .button-container a{
+  flex: 1; 
+  max-width: 40%; 
+}
+.event-declined{
+  background-color: lightgrey;
+}
+.accordion-content ul{
+  flex-direction: row;
+  display: flex;
+  list-style: none;
+  justify-content: space-evenly;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.accordion-content button{
+  width: 100%;
+}
+
+
+
+
+
+
+
+
+/* #alternate-layout{
     order: 2;
-}
-.skew-right{
+} */
+/* .skew-right{
   transform: perspective(300px) rotateY(5deg);
-}
+} */
 
 /* input:not(:placeholder-shown):valid{outline: 3px green;} */
 
