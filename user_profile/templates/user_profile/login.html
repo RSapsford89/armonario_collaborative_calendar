@@ -3,7 +3,7 @@
 {% block content %}
 {% comment " This skeleton code is taken from a YouTube Tutorial by DaveGray www.youtube.com/watch?v=DIFaOkxy6TE " %}{% endcomment %}
     <section>
-        <h1>User Login</h1>
+        <h1 class="title">User Login</h1>
         <form action="/user/login/" method="post" class="form-with-validation">
             {% csrf_token %}
             {{form}}

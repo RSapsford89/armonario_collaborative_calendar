@@ -5,18 +5,20 @@
     {% if user.is_authenticated %}
         <h1 class="title">{{user|upper}} PROFILE</h1>
         <hr>
-        {% if user.picture %}
-            <img src="{{user.picture.url}}" alt="Profile" style="max-width:200px">
-            {% else %}
-            <img src="{% static 'images/default_profile.webp' %}" alt="Profile" >
-        {% endif %}
-        <ul>
-            <li><strong>E-mail:</strong> {{user.email}}</li>
-            <li><strong>First Name:</strong> {{user.first_name}}</li>
-            <li><strong>Last Name:</strong> {{user.last_name}}</li>
-            <li><strong>Phone Number:</strong> {{user.phone_number}}</li>
-            <li><strong>Location:</strong> {{user.location}}</li>
-        </ul>
+        <div class="container">
+            {% if user.picture %}
+                <img src="{{user.picture.url}}" alt="Profile" style="max-width:200px">
+                {% else %}
+                <img src="{% static 'images/default_profile.webp' %}" alt="Profile" >
+            {% endif %}
+            <ul>
+                <li><strong>E-mail:</strong> {{user.email}}</li>
+                <li><strong>First Name:</strong> {{user.first_name}}</li>
+                <li><strong>Last Name:</strong> {{user.last_name}}</li>
+                <li><strong>Phone Number:</strong> {{user.phone_number}}</li>
+                <li><strong>Location:</strong> {{user.location}}</li>
+            </ul>
+        </div>
         
         <h2>Your Groups</h2>
         {% for item in linkedGroups %}

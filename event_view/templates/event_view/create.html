@@ -6,11 +6,12 @@
             <h1>CREATE AN EVENT</h1>
         </div>
         <hr>
-        <form action="/event/create/" method="post" class="form-with-validation">
-            {% csrf_token %}
-            {{eform}}
-            {{uform}}
-            <button>Submit</button>
-        </form>
+            <form action="/event/create/" method="post" class="form-with-validation">
+                {% csrf_token %}
+                {{eform}}
+                {{uform}}
+                <button>Submit</button>
+            </form>
+
     </section>
 {% endblock content %}

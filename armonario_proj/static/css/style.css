@@ -73,13 +73,7 @@ img{
 .large-font{
   font-size: 1.5rem;
 }
-/* .container {
-  max-width: 850px;
-  height: 50dvh;
-  border: green dashed;
-  place-self: center;
-  align-content: center;
-} */
+
 .cta-form{
  place-items:center;
   position:sticky;
@@ -162,13 +156,19 @@ button:hover{
   background-color: var(--tyrian-purple-color);
   color: var(--light-text-color);
 }
+/* Styling for Profile page */
+.container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 /* Styling for Create Event/Groups  */
 .form-with-validation{
   max-width: 600px;
   display: flex;
   flex-direction: column;
-  justify-content:space-between;
-  
+  /* justify-content:space-between; */
+  margin:0 auto;
 }
 .form-with-validation div{
   padding-left: 15%;
@@ -185,6 +185,12 @@ button:hover{
 /* Styling for Event List page */
 /* Accordion functional design from: https://supfort.com/pure-css-accordion-without-javascript */
 /* Accordion items */
+/* container */
+.accordion-container{
+  max-width: 800px;
+  border: 2px solid var(--selective-yellow);
+  margin: 0 auto;
+}
 .accordion-container input{
   display: none;
 }
@@ -202,11 +208,7 @@ button:hover{
 .accordion-container input:checked +label + .accordion-content{
   display: block;
 }
-/* container */
-.accordion-container{
-  max-width: 800px;
-  border: 2px solid var(--selective-yellow);
-}
+
 /* each accordion section */
 .accordion-item{
 
