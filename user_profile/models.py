@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from cloudinary.models import CloudinaryField
 from PIL import Image
 # Create your models here.
 
@@ -16,7 +17,7 @@ class CustomUser(AbstractUser):
     location = models.CharField(max_length=100, blank=True)
     phone_number = models.CharField( max_length=50, blank=True)
     date_joined = models.DateTimeField( auto_now_add=True)
-    picture = models.ImageField(default='profile/default_profile.webp', upload_to='profile/', blank=True)
+    picture = CloudinaryField('image', default='profile/default_profile.webp', blank=True)
     
     def __str__(self):
         return self.username
