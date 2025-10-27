@@ -1,0 +1,255 @@
+@import url("https://fonts.googleapis.com/css2?family=Tagesschrift&family=Yuji+Syuku&display=swap");
+
+:root {
+  --title-font: "Tagesschrift", system-ui;
+  --secondary-font: "Yuji Syuku", serif;
+  --tyrian-purple-color:#66023C;
+  --cinnabar-color:#e44d2e;
+  --rich-black-color:#001524;
+  --vista-blue-color:#7f96ff;
+  --selective-yellow: #f7b801;
+  --light-text-color:#FFFFFF;
+  --dark-text-color:#000000;
+
+}
+h1 {
+  font-family: var(--title-font);
+  font-weight: 400;
+  padding-left: 10%;
+  text-wrap:wrap;
+}
+p {
+  font-family: var(--secondary-font);
+  font-size: 1rem;
+  text-align: center;
+}
+body {
+  margin: auto;
+  width: 80%;
+  max-width: 1000px;
+  /* border: red dashed; */
+  font-family: var(--secondary-font);
+  min-height: 100dvh;
+}
+
+header nav{
+  background-color:var(--tyrian-purple-color);
+  
+}
+footer nav{
+  background-color: var(--tyrian-purple-color);
+}
+.navbar{
+  /* make row flex, 0 pad */
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1rem,10%,20rem)
+}
+.navbar li{
+  /* remove the bullet point */
+  list-style: none;  
+}
+.navbar a{
+  color: var(--light-text-color);
+}
+.navbar a:hover{
+  color: var(--vista-blue-color);
+}
+
+div {
+  /* border: 1px dashed; */
+  border-radius: 5px;
+}
+img{
+  max-width: 100%;
+  inline-size: 250px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 100vw;
+}
+.large-font{
+  font-size: 1.5rem;
+}
+/* .container {
+  max-width: 850px;
+  height: 50dvh;
+  border: green dashed;
+  place-self: center;
+  align-content: center;
+} */
+.cta-form{
+ place-items:center;
+  position:sticky;
+  top:0;
+  
+}
+.cta-form input, .cta-form button{
+  border:none;
+  border-radius:12px;
+  height:25px;
+}
+.cta-form input{
+  padding-right:50px;
+  width:100%;
+  box-sizing:border-box;
+  background-color:#f7b801;
+}
+.cta-form button{
+  position: absolute;
+  width:clamp(50px, 10%, 100px);
+  top:50%;
+  right:0px;
+  background-color:#66023c;
+}
+.login-container{
+  position:relative;
+  height:fit-content;
+  width:clamp(250px, 50%, 800px);
+  backdrop-filter: blur(1rem);
+  border-radius: 1rem;
+  /* border:blue dashed 1px; */
+}
+.title{
+  margin: 20px 0px;
+  background-color: #f7b801;
+}
+.sticky{
+  position: fixed;
+  top: 0;
+}
+.img-block{
+    /* width: 50%;
+    height:100px; */
+    justify-self: center;
+}
+.text-div{
+    /* width: 50%; */
+
+}
+.info-blocks{
+display: grid;
+grid-template-columns: repeat(auto-fit,minmax(200px, 1fr));
+justify-content: center;
+align-items: center;
+gap: 2rem 2rem;
+}
+.color-div-A{
+  background-color: var(--cinnabar-color);
+  padding: 3rem;
+  margin: 5%;
+}
+.color-div-B{
+  background-color: var(--vista-blue-color);
+  padding: 3rem;
+  margin: 5%;
+}
+.product-info{
+    /* display: flex; */
+    margin: 50px 5px;
+}
+/* element level to apply to site wide buttons */
+button{
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #7f96ff;
+  transition: ease .25s;
+}
+button:hover{
+  background-color: var(--tyrian-purple-color);
+  color: var(--light-text-color);
+}
+/* Styling for Create Event/Groups  */
+.form-with-validation{
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-between;
+  
+}
+.form-with-validation div{
+  padding-left: 15%;
+  padding-bottom: 2%;
+}
+.form-with-validation input, .form-with-validation textarea{
+  max-width: 90%;
+}
+.form-with-validation button{
+  max-width: 50%;
+  margin: 2% 4%;
+  align-self: center;
+}
+/* Styling for Event List page */
+/* Accordion functional design from: https://supfort.com/pure-css-accordion-without-javascript */
+/* Accordion items */
+.accordion-container input{
+  display: none;
+}
+.accordion-container  label{
+  display: block;
+  background-color: var(--cinnabar-color);
+  transition: ease .5s;
+}
+.accordion-container label:hover{
+  background: var(--selective-yellow);
+}
+.accordion-container input +label +.accordion-content{
+  display: none;
+}
+.accordion-container input:checked +label + .accordion-content{
+  display: block;
+}
+/* container */
+.accordion-container{
+  max-width: 800px;
+  border: 2px solid var(--selective-yellow);
+}
+/* each accordion section */
+.accordion-item{
+
+}
+/* accordion heading section/button */
+.accordion-header{
+
+}
+/* the inner content of the accordion */
+.accordion-content{
+  /* display: flex; */
+  padding: 5%;
+}
+.accordion-content .button-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+
+}
+.accordion-content .button-container a{
+  flex: 1; 
+  max-width: 40%; 
+}
+.event-declined{
+  background-color: lightgrey;
+}
+.accordion-content ul{
+  padding: 0;
+  flex-direction: row;
+  display: flex;
+  list-style: none;
+  justify-content: space-evenly;
+  gap: 2rem;
+  flex-wrap: wrap;
+  
+}
+
+/* input:not(:placeholder-shown):valid{outline: 3px green;} */
+
+/* #to-make-images-fit-nicely{
+    inline-size: 200px;
+    aspect-ratio: 1;/* maintains original without stretching/changes*/
+/* object-fit: cover; stops the image being physically stretched and just crops */
+/* border-radius: 100vw; */
+/* }  */
