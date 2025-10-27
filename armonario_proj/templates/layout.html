@@ -16,21 +16,21 @@
 <body>
     <header>
         <div>
-            <nav>
-                <ul>
+            <nav aria-label="navigation menu">
+                <ul class="navbar">
                     {% if request.path != '/' %}
-                        <ul><a href="/">Home</a></ul>
+                        <li><a href="/">Home</a></li>
                     {% endif %}
                     {% if user.is_authenticated %}
-                        <ul><a href="{% url "user:profile" %}">{{user.username}} 's Profile</a></ul>
-                        <ul><a href="{% url "user:logout" %}">Log out {{user.username}}</a></ul>
-                        <ul><a href="{% url "group:create" %}">Create a Group</a></ul>
-                        <ul><a href="{% url "group:join" %}">Join a Group</a></ul>
-                        <ul><a href="{% url "event:create" %}">Create Event</a></ul>
-                        <ul><a href="{% url "calendar:list" %}">View Events</a></ul>
+                        <li><a href="{% url "user:profile" %}">{{user.username}} 's Profile</a></li>
+                        <li><a href="{% url "user:logout" %}">Log out {{user.username}}</a></li>
+                        <li><a href="{% url "group:create" %}">Create a Group</a></li>
+                        <li><a href="{% url "group:join" %}">Join a Group</a></li>
+                        <li><a href="{% url "event:create" %}">Create Event</a></li>
+                        <li><a href="{% url "calendar:list" %}">View Events</a></li>
                     {% else %}
-                        <ul><a href="{% url "user:login" %}">Log in</a></ul>
-                        <ul><a href="{% url "user:register" %}">Register</a></ul>
+                        <li><a href="{% url "user:login" %}">Log in</a></li>
+                        <li><a href="{% url "user:register" %}">Register</a></li>
                     {% endif %}
                     {% comment %} <ul><a href="{% url "" %}">About</a></ul> {% endcomment %}
                     {% comment %} <ul><a href="{% url "" %}"></a></ul> {% endcomment %}
@@ -46,6 +46,17 @@
         {% endblock content %}
 
     </main>
+    <footer>
+        <p>&copy; 2025 Armonario - Collaborative Calendars</p>
+        <nav aria-label="Footer navigation">
+            <ul class ='navbar'>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+            </ul>
+        </nav>
+    </footer>
 </body>
 
 </html>

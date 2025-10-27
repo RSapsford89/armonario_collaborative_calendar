@@ -3,11 +3,19 @@
 :root {
   --title-font: "Tagesschrift", system-ui;
   --secondary-font: "Yuji Syuku", serif;
+  --tyrian-purple-color:#66023C;
+  --cinnabar-color:#e44d2e;
+  --rich-black-color:#001524;
+  --vista-blue-color:#7f96ff;
+  --light-text-color:#FFFFFF;
+  --dark-text-color:#000000;
+
 }
 h1 {
   font-family: var(--title-font);
   font-weight: 400;
   padding-left: 10%;
+  text-wrap:wrap;
 }
 p {
   font-family: var(--secondary-font);
@@ -22,8 +30,31 @@ body {
   min-height: 100dvh;
 }
 
-header {
-  background-color: pink;
+header nav{
+  background-color:var(--tyrian-purple-color);
+  
+}
+footer nav{
+  background-color: var(--tyrian-purple-color);
+}
+.navbar{
+  /* make row flex, 0 pad */
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1rem,10%,20rem)
+}
+.navbar li{
+  /* remove the bullet point */
+  list-style: none;  
+}
+.navbar a{
+  color: var(--light-text-color);
+}
+.navbar a:hover{
+  color: var(--vista-blue-color);
 }
 
 div {
