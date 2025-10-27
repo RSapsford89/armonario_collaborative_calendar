@@ -2,7 +2,10 @@
 {% block content %}
 {% comment " This skeleton code is taken from a YouTube Tutorial by DaveGray www.youtube.com/watch?v=DIFaOkxy6TE " %}{% endcomment %}
     <section>
-        <h1>Create an Event</h1>
+        <div class="title">
+            <h1>CREATE AN EVENT</h1>
+        </div>
+        <hr>
         <form action="/event/create/" method="post" class="form-with-validation">
             {% csrf_token %}
             {{eform}}
@@ -10,17 +13,4 @@
             <button>Submit</button>
         </form>
     </section>
-    {% for item in linkedGroups %}
-            <button class="accordion-button" style="color:{{item.GroupColour}};">{{item.group}}</button>
-            <div class="accordion">                
-                <h2>{{item.GroupName}}</h2>
-                <p>The sharecode is: {{item.GroupShareCode}}</p>                
-                <a href="{% url 'group:leave' item.group.id %}">
-                    <button>Leave Group 💣</button>                
-                </a>               
-            </div>
-        {% empty %}
-            <h2>You're not in any groups yet</h2>
-        {% endfor %}
-    <h2>{{response}}</h2>
 {% endblock content %}

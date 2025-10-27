@@ -3,37 +3,52 @@
 {% block content %}
 <section>
     {% if user.is_authenticated %}
-        <h1>{{user}} Profile</h1>
+        <h1 class="title">{{user|upper}} PROFILE</h1>
+        <hr>
         {% if user.picture %}
             <img src="{{user.picture.url}}" alt="Profile" style="max-width:200px">
             {% else %}
-            <img src="{% static 'images/default_profile.webp' %}" alt="Profile" style="max-width:200px">
-            {% endif %}
-        <li>{{user.email}}</li>
-        <li>{{user.first_name}}</li>
-        <li>{{user.last_name}}</li>
-        <li>{{user.phone_number}}</li>
-        <li>{{user.location}}</li>
-        <div class="accordion-container">    
-        {% for item in linkedGroups %}
-            <button class="accordion-button" style="color:{{item.GroupColour}};">{{item.group}}</button>
-            <div class="accordion">                
-                <h2>{{item.GroupName}}</h2>
-                <p>The sharecode is: {{item.GroupShareCode}}</p>                
-                <a href="{% url 'group:leave' item.group.id %}">
-                    <button>Leave Group 💣</button>                
-                </a>               
-            </div>
-        {% empty %}
-            <h2>You're not in any groups yet</h2>
-        {% endfor %}
-    </div>
+            <img src="{% static 'images/default_profile.webp' %}" alt="Profile" >
+        {% endif %}
+        <ul>
+            <li><strong>E-mail:</strong> {{user.email}}</li>
+            <li><strong>First Name:</strong> {{user.first_name}}</li>
+            <li><strong>Last Name:</strong> {{user.last_name}}</li>
+            <li><strong>Phone Number:</strong> {{user.phone_number}}</li>
+            <li><strong>Location:</strong> {{user.location}}</li>
+        </ul>
         
-        <a href="{% url "user:edit_view" user.id %}">
-            <button>Edit Profile ✍</button>
-        </a>
+        <h2>Your Groups</h2>
+        {% for item in linkedGroups %}
+        <div class="accordion-container">
+            <input type="checkbox" id="accordion-{{ forloop.counter }}" class="accordion-button" />
+            <label for="accordion-{{ forloop.counter }}" 
+                   style="background-color: {{item.GroupColour}};">
+                {{item.group}}
+            </label>
+            
+            <div class="accordion-content">
+                <h2>{{item.group}}</h2>
+                <p><strong>Share Code:</strong> {{item.GroupShareCode}}</p>
+                
+                <div class="button-container">
+                    <a href="{% url 'group:leave' item.group.id %}">
+                        <button>Leave Group 💣</button>                
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+            <p>You're not in any groups yet</p>
+        {% endfor %}
+        
+        <div style="margin-top: 2rem;">
+            <a href="{% url "user:edit_view" user.id %}">
+                <button style="max-width: 300px;">Edit Profile ✍</button>
+            </a>
+        </div>
     {% else %}
-    <h2>User not logged in, please <a href="{% url "user:login" %}">Log In</a> or <a href="{% url "user:register" %}">Sign-Up</a></h2>
+        <h2>User not logged in, please <a href="{% url "user:login" %}">Log In</a> or <a href="{% url "user:register" %}">Sign-Up</a></h2>
     {% endif %}
 </section>
 {% endblock content %}
