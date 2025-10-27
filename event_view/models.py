@@ -9,12 +9,13 @@ def todays_date():
 class Event(models.Model):
     """
     Event model to contain all fields associated
-    with the calendar Events
+    with the calendar Events. PrivateEvent for later
+    use in later releases. EventCreatedTime is for Admin
+    use in case of User issues.
     """
     EventName = models.CharField(blank=False, max_length=128)
-    PrivateEvent = models.BooleanField(blank=False, default=True)
-    GroupEvent = models.BooleanField(blank=False, default=False)
-    # new: optional group link
+    PrivateEvent = models.BooleanField(blank=False, default=True)#for later releases where displays could be 'your profile' but you don't want it to show the event    
+    # new: optional group link, makes GroupEvent tag irrelevant.
     group = models.ForeignKey('group_profile.GroupProfile', null=True, blank=True, on_delete=models.SET_NULL, related_name='events')
     StartDate = models.DateField(blank=False, default=todays_date)
     EndDate = models.DateField(blank=False, default=todays_date)

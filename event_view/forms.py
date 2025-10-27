@@ -1,5 +1,5 @@
 from django import forms
-#from django.forms import formset_factory
+from django.core.exceptions import ValidationError
 from event_view.models import Event, UserEventLink
 from group_profile.models import UserGroupLink, GroupProfile
 from user_profile.models import CustomUser
@@ -8,12 +8,13 @@ from user_profile.models import CustomUser
 class CreateEventForm(forms.ModelForm):
     """
     Form contents to render in view for
-    creating Events
+    creating Events. Removed GroupEvent
+    as group serves the function required
     """
     
     class Meta():
         model = Event
-        fields =('EventName','PrivateEvent','GroupEvent','group',
+        fields =('EventName','PrivateEvent','group',
             'StartDate','EndDate','StartTime','EndTime',
             'Location','Notes', 
         )
@@ -33,6 +34,25 @@ class CreateEventForm(forms.ModelForm):
             else:
                 self.fields['group'].queryset = GroupProfile.objects.none()
             self.fields['group'].required = False
+
+    def clean(self):
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get("StartDate")
+        start_time = cleaned_data.get("StartTime")
+        end_date = cleaned_data.get("EndDate")
+        end_time = cleaned_data.get("EndTime")
+
+        if start_date > end_date:
+            raise ValidationError(
+                "Your end date is earlier than your start date!"
+            )
+        if start_time > end_time:
+            raise ValidationError(
+                "Your end time is earlier than your start time!"
+            )
+        
+        return cleaned_data
+
 
 
 class AddUsersForm(forms.ModelForm):

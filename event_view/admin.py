@@ -5,16 +5,17 @@ from .models import Event, UserEventLink
 class EventProfileAdmin(admin.ModelAdmin):
     list_display=('EventName',
             'PrivateEvent',
-            'GroupEvent',
-            #'GroupId',
+            'group',
             'StartDate',
             'EndDate',
             'StartTime',
             'EndTime',
             'Location',
             'Notes',
+            'EventCreatedTime'
             )
     
+
 class UserEventProfileAdmin(admin.ModelAdmin):
     list_display = ('customUser', 'event', 'status')
 

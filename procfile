@@ -1,0 +1,1 @@
+web: gunicorn armonario_proj.wsgi

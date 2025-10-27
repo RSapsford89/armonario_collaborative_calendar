@@ -12,7 +12,7 @@ def create_group(request):
     if request.method == 'POST':
         form = CreateGroupForm(request.POST)
         if form.is_valid():
-            group=form.save()
+            group = form.save()
             UserGroupLink.objects.create(customUser=request.user, groupProfile=group, status=1)
             response = "Group created."
             form = CreateGroupForm()
@@ -46,21 +46,27 @@ def list_group(request):
     to the group. BUG: how to test entry into
     UsergroupLink is unique (i.e user not already related)
     """
-    response=""
+    response = ""
+    groups = []
     if request.method == "POST":
-        group_query = request.POST.get("group_search","")
-        sharecode_query = request.POST.get("sharecode_test", "")        
+        group_query = request.POST.get("group_search","").strip()
+        sharecode_query = request.POST.get("sharecode_test", "").strip()
         if not group_query or not sharecode_query:
             print(group_query)
             response = "Request to join failed - Enter the exact name and sharecode again"
         else:
             group = GroupProfile.objects.filter(GroupName__iexact=group_query, GroupShareCode=sharecode_query).first()
-            group.members.add(request.user, through_defaults={'status': 2})
-            response = "Correct credentials entered. You are being added to the group"
+            
+            if group:
+                alreadyMember = UserGroupLink.objects.filter(customUser=request.user, groupProfile=group).exists()
+                if alreadyMember:
+                    response = "You are already a member of this Group"
+                else:
+                    group.members.add(request.user, through_defaults={'status': 2})
+                    response = "Correct credentials entered. You are being added to the group"
     else:
-        group_query=""
-        sharecode_query=""
-    groups = GroupProfile.objects.filter(GroupName__contains=group_query , GroupShareCode__contains=sharecode_query)#remove after testing
+        group_query = ""
+        sharecode_query = ""
     
     return render(request, 'group_profile/join.html', {'groups': groups, 'response': response})
 
