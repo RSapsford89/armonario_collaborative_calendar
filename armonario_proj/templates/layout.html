@@ -31,10 +31,7 @@
                     {% else %}
                         <li><a href="{% url "user:login" %}">Log in</a></li>
                         <li><a href="{% url "user:register" %}">Register</a></li>
-                    {% endif %}
-                    {% comment %} <ul><a href="{% url "" %}">About</a></ul> {% endcomment %}
-                    {% comment %} <ul><a href="{% url "" %}"></a></ul> {% endcomment %}
-                    
+                    {% endif %}                    
                 </ul>
             </nav>
         </div>
@@ -50,8 +47,7 @@
         <p>&copy; 2025 Armonario - Collaborative Calendars</p>
         <nav aria-label="Footer navigation">
             <ul class ='navbar'>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
             </ul>
         </nav>
     </footer>

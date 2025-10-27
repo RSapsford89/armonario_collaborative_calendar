@@ -18,16 +18,17 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from . import views
+from .views import home, contact
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.homepage, name='home'),
-    path('calendar/', include('calendar_view.urls', namespace='calendar')),
-    path('group/', include('group_profile.urls', namespace='group')),
-    path('user/', include('user_profile.urls', namespace='user')),
-    path('event/', include('event_view.urls', namespace='event')),
+    path('', home, name='home'),
+    path('contact/', contact, name='contact'),
+    path('user/', include(('user_profile.urls','user_profile'), namespace='user')),
+    path('calendar/', include(('calendar_view.urls','calendar_view'), namespace='calendar')),
+    path('group/', include(('group_profile.urls','group_profile'), namespace='group')),
+    path('event/', include(('event_view.urls','event_view'), namespace='event')),
 ]
 
 if settings.DEBUG:
