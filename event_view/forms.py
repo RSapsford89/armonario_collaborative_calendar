@@ -46,7 +46,7 @@ class CreateEventForm(forms.ModelForm):
             raise ValidationError(
                 "Your end date is earlier than your start date!"
             )
-        if start_time > end_time:
+        if start_date == end_date and start_time > end_time:
             raise ValidationError(
                 "Your end time is earlier than your start time!"
             )
