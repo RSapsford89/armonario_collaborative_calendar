@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.core.mail import send_mail
 from .forms import ContactForm
 
 def home(request):
@@ -14,9 +15,17 @@ def contact(request):
             email = form.cleaned_data['email']
             message = form.cleaned_data['message']
             
-            # You could save to database, send email, etc.
-            # For now, just show a success message
-            messages.success(request, 'Thank you for contacting us! We will get back to you soon.')
+            email_subject = f'Contact from {name}'
+            email_content = f'{name}, {email} from Armonario sent this message:\n {message} '
+            send_mail(
+                email_subject,
+                email_content,
+                email,
+                [email],
+                fail_silently=False,
+            )
+            # show a success message as example - should 
+            messages.success(request, f'Thank you for contacting us! We sent a copy to {email}.')
             return redirect('contact')
     else:
         form = ContactForm()

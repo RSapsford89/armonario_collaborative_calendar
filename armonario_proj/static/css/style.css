@@ -9,6 +9,12 @@
   --vista-blue-color:#7f96ff;
   --selective-yellow: #f7b801;
   --light-text-color:#FFFFFF;
+  /* trying another colour scheme */
+  --terracotta-color:#e2725b;
+  --marble-white-color:#f5f5f5;
+  --tyrian-purple-color:#66023C;
+  --gold-color: #D4AF37;
+  --olive-green:#708238;
   --dark-text-color:#000000;
 
 }
@@ -18,6 +24,7 @@ main{
 }
 h1 {
   font-family: var(--title-font);
+  font-size: clamp(1.5rem, 5vw, 3rem);
   font-weight: 400;
   padding-left: 10%;
   text-wrap:wrap;
@@ -31,9 +38,8 @@ body {
   margin: auto;
   width: 80%;
   max-width: 1000px;
-  /* border: red dashed; */
   font-family: var(--secondary-font);
-  background-color: #F7F7FF;
+  background-color: var(--marble-white-color);
 
 }
 
@@ -76,85 +82,87 @@ img{
   border-radius: 100vw;
 }
 .large-font{
-  font-size: 1.5rem;
-}
-
-.cta-form{
- place-items:center;
-  position:sticky;
-  top:0;
-  
-}
-.cta-form input, .cta-form button{
-  border:none;
-  border-radius:12px;
-  height:25px;
-}
-.cta-form input{
-  padding-right:50px;
-  width:100%;
-  box-sizing:border-box;
-  background-color:#f7b801;
-}
-.cta-form button{
-  position: absolute;
-  width:clamp(50px, 10%, 100px);
-  top:50%;
-  right:0px;
-  background-color:#66023c;
-}
-.login-container{
-  position:relative;
-  height:fit-content;
-  width:clamp(250px, 50%, 800px);
-  backdrop-filter: blur(1rem);
-  border-radius: 1rem;
-  /* border:blue dashed 1px; */
+  font-size: clamp(1rem, 3vw, 2rem);
 }
 .title{
   margin: 20px 0px;
-  background-color: #f7b801;
+  background-color: var(--gold-color);
 }
 .sticky{
   position: fixed;
   top: 0;
 }
 .img-block{
-    /* width: 50%;
-    height:100px; */
-    justify-self: center;
-}
-.text-div{
-    /* width: 50%; */
-
+  justify-self: center;
 }
 .info-blocks{
-display: grid;
-grid-template-columns: repeat(auto-fit,minmax(200px, 1fr));
-justify-content: center;
-align-items: center;
-gap: 2rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px, 1fr));
+  justify-content: center;
+  align-items: center;
+  gap: 3rem 3rem;
+}
+/* for positioning the button with animation */
+/* animation based on #18 here: https://dev.to/webdeasy/top-20-css-buttons-animations-f41 */
+.slide-wrapper{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+/* for styling the href element as a button */
+.slide-button{
+  display: block;
+  position: relative;
+  justify-self: center;
+  margin: auto 3rem;
+  border: 2px solid var(--gold-color);
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 0.5rem 4rem;
+  transition: all 0.4s;
+}
+.slide-button span{
+  position: relative;
+  z-index: 2;
+}
+.slide-button:after{
+  position:absolute;
+  border-radius: 20px;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: var(--terracotta-color);
+  transition:all 0.4s;
+}
+.slide-button:hover{
+  color: var(--light-text-color);
+}
+.slide-button:hover:after{
+  width: 100%;
 }
 .color-div-A{
-  background-color: var(--cinnabar-color);
+  background-color: var(--olive-green);
   padding: 3rem;
   margin: 5%;
 }
 .color-div-B{
-  background-color: var(--vista-blue-color);
+  background-color: var(--terracotta-color);
   padding: 3rem;
   margin: 5%;
 }
 .product-info{
     /* display: flex; */
-    margin: 50px 5px;
+    margin: 3rem 1rem;
 }
 /* element level to apply to site wide buttons */
 button{
   width: 100%;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  background-color: #7f96ff;
+  background-color: var(--terracotta-color);
   transition: ease .25s;
 }
 button:hover{
