@@ -3,11 +3,16 @@
 {% block content %}
 {% comment " This skeleton code is taken from a YouTube Tutorial by DaveGray www.youtube.com/watch?v=DIFaOkxy6TE " %}{% endcomment %}
     <section>
-        <h1>Create a group</h1>
+        <h1 class="title">CREATE A GROUP</h1>
+        <hr>
         <form action="/group/create/" method="post" class="form-with-validation">
             {% csrf_token %}
             {{form}}
-            <button>Submit</button>
+            <div class="slide-wrapper">
+                <button type="submit" class="slide-button">
+                    <span>Submit</span>
+                </button>
+            </div>
         </form>
     </section>
     <h2>{{response}}</h2>

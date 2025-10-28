@@ -2,27 +2,16 @@
 {% load static %}
 {% block content %}
 <div class="title" id="title">
-    <h1>ARMONARIO</h1>
+    <h1 class="title">ARMONARIO</h1>
     <p class="large-font">Timekeeping for your tribe, from family to Empire...</p>
-</div>
-<div class="container">
-    <div class="login-form ">
-
-    </div>
 </div>
 <hr>
 <section aria-label="Armonario information">
-    {% comment %} <form class="cta-form" action=""> 
-        <div class="login-container">
-            <label for="email">Create an account or login:</label>
-            <input id='login-input' type="email" name="email" id="email" placeholder="caesar@armonario.co.uk">
-            <button id='login-btn' type="submit">▶</button>
-        </div>
-    </form> {% endcomment %}
+    
     <div class="product-info">
         <div class="info-blocks">
             <div class="slide-wrapper">
-                <a class="slide-button" href="{%url "user:register" %}"><span>Sign Up</span></a>
+                <a id="signup-btn" class="slide-button" href="{%url "user:register" %}"><span>Sign Up</span></a>
             </div>
         </div>
         <div class="info-blocks">

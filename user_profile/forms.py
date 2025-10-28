@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm 
 from django import forms 
+
 User = get_user_model()
 # This code is based largely on the custom form built in 
 #the YouTube video by Codemy.com: https://www.youtube.com/watch?v=HdrOcreAXKk&t=397s
@@ -10,7 +11,6 @@ class CustomUserForm(UserCreationForm):
     This stops the form Meta.model from using default auth.User
     instead of this one
     """
-
     email = forms.EmailField()
     first_name = forms.CharField( max_length=50, required=True)
     last_name = forms.CharField(max_length=50, required=True)

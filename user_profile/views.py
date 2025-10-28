@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, logout
+from django.contrib.auth.forms import AuthenticationForm
 from .forms import CustomUserForm, CustomUserFormEdit
 from user_profile.models import CustomUser
-from django.contrib.auth import login, logout
+
 from group_profile.models import UserGroupLink
 # Create your views here.
 

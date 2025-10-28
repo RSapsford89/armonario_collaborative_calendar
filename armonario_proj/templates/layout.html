@@ -17,18 +17,28 @@
     <header>
         <div>
             <nav aria-label="navigation menu">
+                <button class="menu-toggle" aria-label="Toggle navigation menu">☰</button>
                 <ul class="navbar">
-                    {% if request.path != '/' %}
-                        <li><a href="/">Home</a></li>
-                    {% endif %}
                     {% if user.is_authenticated %}
-                        <li><a href="{% url "user:profile" %}">{{user.username}} 's Profile</a></li>
-                        <li><a href="{% url "user:logout" %}">Log out {{user.username}}</a></li>
-                        <li><a href="{% url "group:create" %}">Create a Group</a></li>
-                        <li><a href="{% url "group:join" %}">Join a Group</a></li>
-                        <li><a href="{% url "event:create" %}">Create Event</a></li>
-                        <li><a href="{% url "calendar:list" %}">View Events</a></li>
+                        <div class="nav-column">
+                            {% if request.path != '/' %}
+                                <li><a href="/">Home</a></li>
+                            {% endif %}
+                            <li><a href="{% url "user:profile" %}">{{user.username}}'s Profile</a></li>
+                            <li><a href="{% url "user:logout" %}">Log out</a></li>
+                        </div>
+                        <div class="nav-column">
+                            <li><a href="{% url "group:create" %}">Create a Group</a></li>
+                            <li><a href="{% url "group:join" %}">Join a Group</a></li>
+                        </div>
+                        <div class="nav-column">
+                            <li><a href="{% url "event:create" %}">Create Event</a></li>
+                            <li><a href="{% url "calendar:list" %}">View Events</a></li>
+                        </div>
                     {% else %}
+                        {% if request.path != '/' %}
+                            <li><a href="/">Home</a></li>
+                        {% endif %}
                         <li><a href="{% url "user:login" %}">Log in</a></li>
                         <li><a href="{% url "user:register" %}">Register</a></li>
                     {% endif %}                    
@@ -46,11 +56,15 @@
     <footer>
         <p>&copy; 2025 Armonario - Collaborative Calendars</p>
         <nav aria-label="Footer navigation">
-            <ul class ='navbar'>
+            <ul class="footer-nav">
                 <li><a href="{% url 'contact' %}">Contact</a></li>
             </ul>
         </nav>
     </footer>
 </body>
-
+<script>
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+        document.querySelector('.navbar').classList.toggle('active');
+    });
+</script>
 </html>

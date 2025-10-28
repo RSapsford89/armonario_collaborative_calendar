@@ -2,24 +2,31 @@
 
 {% block content %}
 <section>
-    <h1>Event: {{event.EventName}}</h1>
+    <h1 class="title">EVENT: {{event.EventName|upper}}</h1>
+    <hr>
     
-    <form method="post">
+    <form method="post" class="form-with-validation">
         {% csrf_token %}
         {{event_form}}
-        <button type="submit" name="save_event">Update Event</button>
+        <div class="slide-wrapper">
+            <button type="submit" class="slide-button" name="save_event">
+                <span>Update Event</span>
+            </button>
+        </div>
     </form>
-
-    
 </section>
 
 <section>
-        <form method="post">
-            {% csrf_token %}
-            {{ status_form }}
-            <button type="submit">Update status</button>
-        </form>
-        
+    <h2 class="justify-obj">Update Your Status</h2>
+    <form method="post" class="form-with-validation">
+        {% csrf_token %}
+        {{ status_form }}
+        <div class="slide-wrapper">
+            <button type="submit" class="slide-button" name="update_status">
+                <span>Update Status</span>
+            </button>
+        </div>
+    </form>
 </section>
 <hr>
 {% endblock content %}

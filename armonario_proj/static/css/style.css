@@ -3,7 +3,7 @@
 :root {
   --title-font: "Tagesschrift", system-ui;
   --secondary-font: "Yuji Syuku", serif;
-  --tyrian-purple-color:#66023C;
+  
   --cinnabar-color:#e44d2e;
   --rich-black-color:#001524;
   --vista-blue-color:#7f96ff;
@@ -19,7 +19,7 @@
 
 }
 main{
-  min-height: 75dvh;
+  min-height: 60dvh;
   
 }
 h1 {
@@ -28,6 +28,7 @@ h1 {
   font-weight: 400;
   padding-left: 10%;
   text-wrap:wrap;
+  
 }
 p {
   font-family: var(--secondary-font);
@@ -42,37 +43,67 @@ body {
   background-color: var(--marble-white-color);
 
 }
-
+button{
+  font-family: inherit;
+}
 header nav{
   background-color:var(--tyrian-purple-color);
-  
+  border-radius: 1rem;
 }
 footer nav{
   background-color: var(--tyrian-purple-color);
+  border-radius: 1rem;
 }
+/* navbar menu styling */
+/* General info and guide on W3 schools */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--light-text-color);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  width: auto;
+}
+
 .navbar{
-  /* make row flex, 0 pad */
   padding: 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  gap: clamp(1rem,10%,20rem)
-}
-.navbar li{
-  /* remove the bullet point */
-  list-style: none;  
-}
-.navbar a{
-  color: var(--light-text-color);
-}
-.navbar a:hover{
-  color: var(--vista-blue-color);
+  align-items: flex-start;
+  gap: 0.5rem;
 }
 
+.navbar li{
+  list-style: none;
+  transition: background-color 0.3s ease;
+}
+
+.navbar li:hover{
+  background-color: var(--terracotta-color);
+}
+
+.nav-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.nav-column li {
+  width: 100%;
+}
+
+.navbar a{
+  color: var(--light-text-color);
+  padding: 0.5rem;
+  display: block;
+  text-decoration: none;
+}
 div {
-  /* border: 1px dashed; */
-  border-radius: 5px;
+  border-radius: 1rem;
 }
 img{
   max-width: 100%;
@@ -81,18 +112,16 @@ img{
   object-fit: cover;
   border-radius: 100vw;
 }
-.large-font{
-  font-size: clamp(1rem, 3vw, 2rem);
-}
 .title{
   margin: 20px 0px;
   background-color: var(--gold-color);
-}
-.sticky{
-  position: fixed;
-  top: 0;
+  /* padding: 0.5rem; */
+  border-radius: 1rem;
 }
 .img-block{
+  justify-self: center;
+}
+.justify-obj{
   justify-self: center;
 }
 .info-blocks{
@@ -101,26 +130,33 @@ img{
   justify-content: center;
   align-items: center;
   gap: 3rem 3rem;
+  padding-bottom: 1.5rem;
 }
 /* for positioning the button with animation */
 /* animation based on #18 here: https://dev.to/webdeasy/top-20-css-buttons-animations-f41 */
 .slide-wrapper{
   margin-top: 2rem;
   margin-bottom: 2rem;
+  padding: 0;
 }
 /* for styling the href element as a button */
 .slide-button{
   display: block;
   position: relative;
   justify-self: center;
-  margin: auto 3rem;
+  margin: auto 0.5rem;
   border: 2px solid var(--gold-color);
-  border-radius: 20px;
+  border-radius: 1rem;
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1rem;
   text-align: center;
-  padding: 0.5rem 4rem;
+  padding: 0.5rem clamp(1rem, 5vw, 3rem);
   transition: all 0.4s;
+}
+#signup-btn{
+  font-size: 1.5rem;
+  padding: 1rem clamp(1rem, 10vw, 6rem);
+  background-color: var(--selective-yellow);
 }
 .slide-button span{
   position: relative;
@@ -128,7 +164,7 @@ img{
 }
 .slide-button:after{
   position:absolute;
-  border-radius: 20px;
+  border-radius: 1rem;
   content: "";
   top: 0;
   left: 0;
@@ -154,20 +190,15 @@ img{
   margin: 5%;
 }
 .product-info{
-    /* display: flex; */
     margin: 3rem 1rem;
 }
-/* element level to apply to site wide buttons */
-button{
-  width: 100%;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  background-color: var(--terracotta-color);
-  transition: ease .25s;
+.pagination{
+  padding-top: 1.5rem;
+  display: flex;
+  justify-content: center;
 }
-button:hover{
-  background-color: var(--tyrian-purple-color);
-  color: var(--light-text-color);
+.pagination span, .pagination a{
+  padding: 0 0.5rem;
 }
 /* Styling for Profile page */
 .container{
@@ -178,21 +209,27 @@ button:hover{
 /* Styling for Create Event/Groups  */
 .form-with-validation{
   max-width: 600px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   margin:0 auto;
+  justify-content: center;
 }
 .form-with-validation div{
-  padding-left: 15%;
-  padding-bottom: 2%;
+  display: grid;
+  gap: 0.5rem;
 }
-.form-with-validation input, .form-with-validation textarea{
-  max-width: 90%;
+.form-with-validation label{
+  
 }
-.form-with-validation button{
+.form-with-validation input, .form-with-validation textarea, .form-with-validation select{
+  max-width: clamp(8rem, 30vw, 16rem);
+}
+/* .form-with-validation button{
   max-width: 50%;
   margin: 2% 4%;
   align-self: center;
+} */
+.helptext{
+  font-size: 0.8rem;
 }
 /* Styling for Event List page */
 /* Accordion functional design from: https://supfort.com/pure-css-accordion-without-javascript */
@@ -208,6 +245,8 @@ button:hover{
 }
 .accordion-container  label{
   display: block;
+  border-radius: inherit;
+  padding-left: 2rem;
   background-color: var(--cinnabar-color);
   transition: ease .5s;
 }
@@ -238,7 +277,7 @@ button:hover{
   max-width: 40%; 
 }
 .event-declined{
-  background-color: lightgrey;
+  background-color: lightgrey !important;
 }
 .accordion-content ul{
   padding: 0;
@@ -250,12 +289,78 @@ button:hover{
   flex-wrap: wrap;
   
 }
+/* Mobile navbar styles <768px tablet */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .navbar {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 0;
+  }
+  
+  .navbar.active {
+    display: flex;
+  }
+  
+  .nav-column {
+    width: 100%;
+    /* border-bottom: 2px solid rgba(255, 255, 255, 0.2); */
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .navbar li {
+    width: 100%;
+    text-align: center;
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.1); */
+  }
+  
+  .navbar a {
+    padding: 0.5rem;
+  }
+}
 
-/* input:not(:placeholder-shown):valid{outline: 3px green;} */
+/* Footer styling */
+footer {
+  background-color: var(--tyrian-purple-color);
+  color: var(--light-text-color);
+  padding: 1rem;
+  text-align: center;
+  margin-top: 2rem;
+  border-radius:1rem;
+}
 
-/* #to-make-images-fit-nicely{
-    inline-size: 200px;
-    aspect-ratio: 1;/* maintains original without stretching/changes*/
-/* object-fit: cover; stops the image being physically stretched and just crops */
-/* border-radius: 100vw; */
-/* }  */
+footer p {
+  margin: 0.5rem 0;
+}
+
+.footer-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.footer-nav li {
+  display: inline;
+  transition: background-color 0.3s ease;
+  border-radius: 0.5rem;
+}
+
+.footer-nav li:hover {
+  background-color: var(--terracotta-color);
+}
+
+.footer-nav a {
+  color: var(--light-text-color);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  display: block;
+}

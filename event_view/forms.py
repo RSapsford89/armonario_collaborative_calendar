@@ -36,6 +36,11 @@ class CreateEventForm(forms.ModelForm):
             self.fields['group'].required = False
 
     def clean(self):
+        """
+        Get the time/date values and  ensure they
+        don't result in negative  time values.
+        Used AI to implement the data cleaning
+        """
         cleaned_data = super().clean()
         start_date = cleaned_data.get("StartDate")
         start_time = cleaned_data.get("StartTime")
@@ -50,9 +55,8 @@ class CreateEventForm(forms.ModelForm):
             raise ValidationError(
                 "Your end time is earlier than your start time!"
             )
-        
-        return cleaned_data
 
+        return cleaned_data
 
 
 class AddUsersForm(forms.ModelForm):
@@ -71,6 +75,7 @@ class AddUsersForm(forms.ModelForm):
         else:
             self.fields['customUser'].queryset = CustomUser.objects.all()
         self.fields['customUser'].required = False
+
 
 class AddGroupForm(forms.ModelForm):
     """

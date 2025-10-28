@@ -60,8 +60,8 @@ def list_events(request):
             'group': ev.group,
         })
 
-    # 4) Paginate the merged list
-    paginator = Paginator(items, 3)
+    # Django docs for paginator used as reference
+    paginator = Paginator(items, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -71,15 +71,16 @@ def list_events(request):
 @login_required
 def edit_event(request, event_id):
     """
-    Edit event and allow the logged-in user to update their UserEventLink.status.
-    make sure get_or_create is unpacked into (obj, created).
+    Edit event and allow the logged-in user to update their UserEventLink.status
+    make sure get_or_create is put into (obj, created). Status values grabbed
+    for use in the list for the form
     """
     response = ""
     event = get_object_or_404(Event, pk=event_id)
-    # unpack get_or_create -> user_link is the model instance
+    # unpack get_or_create -> user_link is the model instance. Fixed function with AI
     user_link, created = UserEventLink.objects.get_or_create(customUser=request.user, event=event)
 
-    # build attendees list for display
+    # build attendees list for display - generated query with AI
     event_links_qs = UserEventLink.objects.filter(event=event).select_related('customUser')
     linkedUsers = [{'user': link.customUser, 'status': link.get_status_display()} for link in event_links_qs]
 

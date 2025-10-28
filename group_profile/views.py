@@ -43,8 +43,7 @@ def list_group(request):
     Method to search for the user entered Group
     Name and ShareCode. Checks query and sharecode
     return valid/exist before attempting to join user
-    to the group. BUG: how to test entry into
-    UsergroupLink is unique (i.e user not already related)
+    to the group.
     """
     response = ""
     groups = []

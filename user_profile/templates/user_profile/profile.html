@@ -34,9 +34,11 @@
                 <p><strong>Share Code:</strong> {{item.GroupShareCode}}</p>
                 
                 <div class="button-container">
-                    <a href="{% url 'group:leave' item.group.id %}">
-                        <button>Leave Group 💣</button>                
-                    </a>
+                    <div class="slide-wrapper">
+                        <a href="{% url 'group:leave' item.group.id %}" class="slide-button">
+                            <span>Leave Group 💣</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -44,9 +46,9 @@
             <p>You're not in any groups yet</p>
         {% endfor %}
         
-        <div style="margin-top: 2rem;">
-            <a href="{% url "user:edit_view" user.id %}">
-                <button style="max-width: 300px;">Edit Profile ✍</button>
+        <div class="slide-wrapper" style="margin-top: 2rem;">
+            <a href="{% url "user:edit_view" user.id %}" class="slide-button">
+                <span>Edit Profile ✍</span>
             </a>
         </div>
     {% else %}

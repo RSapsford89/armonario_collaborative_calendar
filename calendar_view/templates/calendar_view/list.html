@@ -2,7 +2,9 @@
 
 {% block content %}
 <section>
-    <h1 class="title">YOUR EVENTS</h1>
+    <div class="title">
+        <h1 class="title">YOUR EVENTS</h1>
+    </div>
     <hr>
     {% comment %} Pagination happens here. From doc: https://docs.djangoproject.com/en/5.2/topics/pagination/ {% endcomment %}
     {% for item in page_obj %}
@@ -38,12 +40,16 @@
             {% endif %}
 
             <div class= "button-container">
-                <a href="{% url 'calendar:delete_event' item.event.id %}">
-                    <button>Delete Event 💣</button>
-                </a>
-                <a href="{% url 'calendar:edit_event' item.event.id %}">
-                    <button>Edit Event ✍</button>
-                </a>
+                <div class="slide-wrapper">
+                    <a href="{% url 'calendar:delete_event' item.event.id %}" class="slide-button">
+                        <span>Delete Event 💣</span>
+                    </a>
+                </div>
+                <div class="slide-wrapper">
+                    <a href="{% url 'calendar:edit_event' item.event.id %}" class="slide-button">
+                        <span>Edit Event ✍</span>
+                    </a>
+                </div>
             </div>
             
         </div>

@@ -4,23 +4,25 @@
 {% block content %}
 {% comment " This skeleton code is taken from a YouTube Tutorial by DaveGray www.youtube.com/watch?v=DIFaOkxy6TE " %}{% endcomment %}
     <section>
-        <h1>Join the groups</h1>
-               {{search}}</p>
-            <form  method="post">
-                {% csrf_token %}
-                <input type="text" name="group_search" value ="{{group_search}}"placeholder="Search for a group...">
-                <input type="text" name="sharecode_test" value ="{{sharecode_test}}"placeholder="Enter the sharecode">
-                <button type="submit">🔍</button>
-            </form>
-            <h2>{{response}}</h2>
-            <br>
-            <p>{{group.GroupShareCode}}</p>
-        <h2>To show tables are working</h2>
-        {% for group in groups %}
-        <li>{{group.GroupName}}</li>
-            {% for user in group.members.all %}
-            <li>member: {{user.username}}</li>
-            {% endfor %}
-        {% endfor %}
+        <h1 class="title">JOIN THE GROUPS</h1>
+        <hr>
+        {{search}}</p>
+        <form method="post" class="form-with-validation">
+            {% csrf_token %}
+            <div>
+                <input type="text" name="group_search" value="{{group_search}}" placeholder="Search for a group...">
+            </div>
+            <div>
+                <input type="text" name="sharecode_test" value="{{sharecode_test}}" placeholder="Enter the sharecode">
+            </div>
+            <div class="slide-wrapper">
+                <button type="submit" class="slide-button">
+                    <span>🔍 Search</span>
+                </button>
+            </div>
+        </form>
+        <h2>{{response}}</h2>
+
+        
     </section>
 {% endblock content %}

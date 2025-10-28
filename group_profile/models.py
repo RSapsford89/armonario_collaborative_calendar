@@ -20,8 +20,7 @@ class GroupProfile(models.Model):
     """
     members = models.ManyToManyField(CustomUser, through="UserGroupLink")
     GroupName = models.CharField(blank=False, max_length=128, unique=True)
-    #GroupOwner = #This needs to link to the table of the user... Either Junction table or not?
-    GroupColour = models.CharField(blank=False, default="#000000", max_length=7) #hex colour value, should link to color picker hex on the html side
+    GroupColour = models.CharField(blank=False, default="#708238", max_length=7) #hex colour value, should link to color picker hex on the html side
     DateCreated = models.DateTimeField(auto_now_add=True,)#add the date it was created automatically
     GroupShareCode = models.CharField(
         blank=False,
