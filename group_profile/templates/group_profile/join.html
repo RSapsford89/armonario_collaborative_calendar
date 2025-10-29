@@ -10,9 +10,11 @@
         <form method="post" class="form-with-validation">
             {% csrf_token %}
             <div>
+                <label for="group-input">Group Name:</label>
                 <input id="group-input" type="text" name="group_search" value="{{group_search}}" placeholder="Search for a group...">
             </div>
             <div>
+                <label for="code-input">Share Code:</label>
                 <input id="code-input" type="text" name="sharecode_test" value="{{sharecode_test}}" placeholder="Enter the sharecode">
             </div>
             <div class="slide-wrapper">
@@ -21,7 +23,7 @@
                 </button>
             </div>
         </form>
-        <h2>{{response}}</h2>
+        <p>{{response}}</p>
 
         
     </section>

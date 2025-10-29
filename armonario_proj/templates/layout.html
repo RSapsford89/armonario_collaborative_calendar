@@ -3,68 +3,92 @@
 {% url "profile" as profile_url %}
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Armonario - Collaborative Calendars</title>
-    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    
-</head>
-
-<body>
-    <header>
-        <div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% comment %} Asked AI for helpful tags inspiration {% endcomment %}
+        <meta name="title"
+              content="Armonario - Collaborative Calendar & Event Planning">
+        <meta name="description"
+              content="Create and share calendar events with groups. Armonario helps you collaborate on schedules, manage group events, and stay organized together.">
+        <meta name="keywords"
+              content="collaborative calendar, shared calendar, group events, event planning, calendar app, schedule sharing, team calendar, event management">
+        <title>Armonario - Collaborative Calendars</title>
+        <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <header>
             <nav aria-label="navigation menu">
                 <button class="menu-toggle" aria-label="Toggle navigation menu">☰</button>
                 <ul class="navbar">
                     {% if user.is_authenticated %}
-                        <div class="nav-column">
-                            {% if request.path != '/' %}
-                                <li><a href="/">Home</a></li>
-                            {% endif %}
-                            <li><a href="{% url "user:profile" %}">{{user.username}}'s Profile</a></li>
-                            <li><a href="{% url "user:logout" %}">Log out</a></li>
-                        </div>
-                        <div class="nav-column">
-                            <li><a href="{% url "group:create" %}">Create a Group</a></li>
-                            <li><a href="{% url "group:join" %}">Join a Group</a></li>
-                        </div>
-                        <div class="nav-column">
-                            <li><a href="{% url "event:create" %}">Create Event</a></li>
-                            <li><a href="{% url "calendar:list" %}">View Events</a></li>
-                        </div>
+                        <li class="nav-column">
+                            <ul>
+                                {% if request.path != '/' %}
+                                    <li>
+                                        <a href="/">Home</a>
+                                    </li>
+                                {% endif %}
+                                <li>
+                                    <a href="{% url "user:profile" %}">{{ user.username }}'s Profile</a>
+                                </li>
+                                <li>
+                                    <a href="{% url "user:logout" %}">Log out</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-column">
+                            <ul>
+                                <li>
+                                    <a href="{% url "group:create" %}">Create a Group</a>
+                                </li>
+                                <li>
+                                    <a href="{% url "group:join" %}">Join a Group</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-column">
+                            <ul>
+                                <li>
+                                    <a href="{% url "event:create" %}">Create Event</a>
+                                </li>
+                                <li>
+                                    <a href="{% url "calendar:list" %}">View Events</a>
+                                </li>
+                            </ul>
+                        </li>
                     {% else %}
                         {% if request.path != '/' %}
-                            <li><a href="/">Home</a></li>
+                            <li>
+                                <a href="/">Home</a>
+                            </li>
                         {% endif %}
-                        <li><a href="{% url "user:login" %}">Log in</a></li>
-                        <li><a href="{% url "user:register" %}">Register</a></li>
-                    {% endif %}                    
+                        <li>
+                            <a href="{% url "user:login" %}">Log in</a>
+                        </li>
+                        <li>
+                            <a href="{% url "user:register" %}">Register</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </nav>
-        </div>
-    </header>
-    <main >
-        
-        {% block content %}
-        <!-- Content Goes here -->
-        {% endblock content %}
-
-    </main>
-    <footer>
-        <p>&copy; 2025 Armonario - Collaborative Calendars</p>
-        <nav aria-label="Footer navigation">
-            <ul class="footer-nav">
-                <li><a href="{% url 'contact' %}">Contact</a></li>
-            </ul>
-        </nav>
-    </footer>
-</body>
-<script>
-    document.querySelector('.menu-toggle').addEventListener('click', function() {
-        document.querySelector('.navbar').classList.toggle('active');
-    });
-</script>
+        </header>
+        <main>
+            {% block content %}
+                <!-- Content Goes here -->
+            {% endblock content %}
+        </main>
+        <footer>
+            <p>&copy; 2025 Armonario - Collaborative Calendars</p>
+            <nav aria-label="Footer navigation">
+                <ul class="footer-nav">
+                    <li>
+                        <a href="{% url 'contact' %}">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </footer>
+        <script src="{% static 'js/main.js' %}"></script>
+    </body>
 </html>

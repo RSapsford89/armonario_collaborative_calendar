@@ -4,9 +4,9 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import CustomUserForm, CustomUserFormEdit
 from user_profile.models import CustomUser
-
 from group_profile.models import UserGroupLink
 # Create your views here.
+
 
 def register_view(request):
     if request.method == 'POST':
@@ -31,20 +31,21 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'user_profile/login.html', {"form": form})
 
+
 @login_required
 def profile_view(request):
     user = request.user
     groupLinks = UserGroupLink.objects.filter(customUser=user).select_related('groupProfile')
-    linkedGroups=[]
+    linkedGroups = []
     for link in groupLinks:
-        item={
-            'group':link.groupProfile,
-            'GroupShareCode':link.groupProfile.GroupShareCode,
+        item = {
+            'group': link.groupProfile,
+            'GroupShareCode': link.groupProfile.GroupShareCode,
             'GroupColour': link.groupProfile.GroupColour
         }
         linkedGroups.append(item)
 
-    return render(request, 'user_profile/profile.html',{'linkedGroups': linkedGroups})
+    return render(request, 'user_profile/profile.html', {'linkedGroups': linkedGroups})
 
 
 @login_required

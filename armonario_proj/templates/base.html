@@ -1,44 +1,44 @@
 {% extends "layout.html" %}
 {% load static %}
 {% block content %}
-<div class="title" id="title">
-    <h1 class="title">ARMONARIO</h1>
-    <p class="large-font">Timekeeping for your tribe, from family to Empire...</p>
-</div>
-<hr>
-<section aria-label="Armonario information">
-    
-    <div class="product-info">
-        <div class="info-blocks">
-            <div class="slide-wrapper">
-                <a id="signup-btn" class="slide-button" href="{%url "user:register" %}"><span>Sign Up</span></a>
-            </div>
-        </div>
-        <div class="info-blocks">
-            <div class="img-block " id="alternate-layout ">
-                <img src="{% static 'images/roman-puzzled-calendar.webp'%}" alt="" sizes="" srcset="">
-            </div>
-            <div class="color-div-A">
-                <div class="text-div">
-                    <p>
-                        Personalised Calendars with Groups and events.
-                
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="info-blocks">
-            <div class="color-div-B">
-                <div class="text-div">
-                    <p>
-                        Create a Group and set a colour for everyone to see you've got something planned!
-                    </p>
-                </div>
-            </div>
-            <div class="img-block">
-                <img src="{% static 'images/terrible-calendar.webp'%}" alt="" sizes="" srcset="">
-            </div>
-        </div>
+    <div class="title" id="title">
+        <h1 class="title">ARMONARIO</h1>
+        <p class="large-font">Timekeeping for your tribe, from family to Empire...</p>
     </div>
-</section>
+    <hr>
+    <section aria-label="Armonario information">
+        <div class="product-info">
+            <div class="info-blocks">
+                <div class="slide-wrapper">
+                    <a id="signup-btn" class="slide-button" href="{% url "user:register" %}"><span>Sign Up</span></a>
+                </div>
+            </div>
+            <div class="info-blocks">
+                <div class="img-block " id="alternate-layout ">
+                    <img src="{% static 'images/roman-puzzled-calendar.webp' %}"
+                         alt=""
+                         sizes=""
+                         srcset="">
+                </div>
+                <div class="color-div-A">
+                    <div class="text-div">
+                        <p>Personalised Calendars with Groups and events.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="info-blocks">
+                <div class="color-div-B">
+                    <div class="text-div">
+                        <p>Create a Group and set a colour for everyone to see you've got something planned!</p>
+                    </div>
+                </div>
+                <div class="img-block">
+                    <img src="{% static 'images/terrible-calendar.webp' %}"
+                         alt=""
+                         sizes=""
+                         srcset="">
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock content %}

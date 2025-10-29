@@ -11,13 +11,13 @@ class CreateEventForm(forms.ModelForm):
     creating Events. Removed GroupEvent
     as group serves the function required
     """
-    
+
     class Meta():
         model = Event
-        fields =('EventName','PrivateEvent','group',
-            'StartDate','EndDate','StartTime','EndTime',
-            'Location','Notes', 
-        )
+        fields = ('EventName', 'PrivateEvent', 'group',
+                  'StartDate', 'EndDate', 'StartTime', 'EndTime',
+                  'Location', 'Notes',
+                  )
         widgets = {
             'StartDate': forms.DateInput(attrs={'type': 'date'}),
             'EndDate': forms.DateInput(attrs={'type': 'date'}),
@@ -62,7 +62,7 @@ class CreateEventForm(forms.ModelForm):
 class AddUsersForm(forms.ModelForm):
     """
     Form for adding users to an Event or Group
-    Use formsets in required view 
+    Use formsets in required view
     """
     class Meta():
         model = UserEventLink
@@ -71,7 +71,7 @@ class AddUsersForm(forms.ModelForm):
     def __init__(self, *args, user=None, **kwargs):
         super().__init__(*args, **kwargs)
         if user is not None:
-            self.fields['customUser'].queryset = CustomUser.objects.exclude(pk= user.pk)
+            self.fields['customUser'].queryset = CustomUser.objects.exclude(pk=user.pk)
         else:
             self.fields['customUser'].queryset = CustomUser.objects.all()
         self.fields['customUser'].required = False
@@ -86,9 +86,10 @@ class AddGroupForm(forms.ModelForm):
         model = UserGroupLink
         fields = ['groupProfile']
 
+
 class UpdateStatusForm(forms.ModelForm):
     """
-    Form for letting a user change their status on 
+    Form for letting a user change their status on
     UserEventLink events
     """
     class Meta:

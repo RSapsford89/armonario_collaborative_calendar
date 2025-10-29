@@ -82,7 +82,10 @@ def edit_event(request, event_id):
 
     # build attendees list for display - generated query with AI
     event_links_qs = UserEventLink.objects.filter(event=event).select_related('customUser')
-    linkedUsers = [{'user': link.customUser, 'status': link.get_status_display()} for link in event_links_qs]
+    linkedUsers = [
+        {'user': link.customUser, 'status': link.get_status_display()}
+        for link in event_links_qs
+        ]
 
     if request.method == 'POST':
         event_form = CreateEventForm(request.POST, instance=event, user=request.user)
@@ -92,7 +95,7 @@ def edit_event(request, event_id):
         if status_form.is_valid():
             status_form.save()
             return redirect('calendar:edit_event', event_id=event_id)
-        #submit form changes, return to list
+        # submit form changes, return to list
         if event_form.is_valid():
             event_form.save()
             return redirect('calendar:list')
@@ -109,8 +112,8 @@ def edit_event(request, event_id):
     })
 
 
-#based on the delete event here: https://www.w3schools.com/django/django_delete_record.php
-#but utilises the edit_event code above. request param required even though unused.
+# based on the delete event here: https://www.w3schools.com/django/django_delete_record.php
+# but utilises the edit_event code above. request param required even though unused.
 def delete_event(request, event_id):
     """
     Event PK is passed on button press. Look for

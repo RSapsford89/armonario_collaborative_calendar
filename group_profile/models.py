@@ -3,6 +3,8 @@ from user_profile.models import CustomUser
 from django.utils.crypto import get_random_string
 
 # Create your models here.
+
+
 def GenerateRandomShareCode():
     """
     Generate a random string of length 12
@@ -10,7 +12,8 @@ def GenerateRandomShareCode():
     """
     return get_random_string(12)
 
-#needs @isAuth signal on the view so that the user profile info can be used to populate some fields
+
+# needs @isAuth signal on the view so that the user profile info can be used to populate some fields
 class GroupProfile(models.Model):
     """
     Model for the Group's profile. Links to Users via a through table.
@@ -20,8 +23,10 @@ class GroupProfile(models.Model):
     """
     members = models.ManyToManyField(CustomUser, through="UserGroupLink")
     GroupName = models.CharField(blank=False, max_length=128, unique=True)
-    GroupColour = models.CharField(blank=False, default="#708238", max_length=7) #hex colour value, should link to color picker hex on the html side
-    DateCreated = models.DateTimeField(auto_now_add=True,)#add the date it was created automatically
+    GroupColour = models.CharField(blank=False, default="#708238", max_length=7)
+    # hex colour value, should link to color picker hex on the html side
+    DateCreated = models.DateTimeField(auto_now_add=True,)
+    # add the date it was created automatically
     GroupShareCode = models.CharField(
         blank=False,
         max_length=12,
@@ -31,7 +36,10 @@ class GroupProfile(models.Model):
     def __str__(self):
         return self.GroupName
 
-STATUS =((0, 'none'), (1, 'Owner'), (2, 'Member'))#example found in CI Django walkthrough
+
+STATUS = ((0, 'none'), (1, 'Owner'), (2, 'Member'))
+# example found in CI Django walkthrough
+
 
 class UserGroupLink(models.Model):
     """
@@ -46,7 +54,7 @@ class UserGroupLink(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['customUser', 'groupProfile'], 
+                fields=['customUser', 'groupProfile'],
                 name='unique_customUser_groupProfile'
             )
         ]

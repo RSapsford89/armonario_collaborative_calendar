@@ -5,34 +5,24 @@
             <h1 class="title">CONTACT US</h1>
         </div>
         <hr>
-        
         {% if messages %}
-            {% for message in messages %}
-                <div class="message-success">
-                    {{ message }}
-                </div>
-            {% endfor %}
+            {% for message in messages %}<div class="message-success">{{ message }}</div>{% endfor %}
         {% endif %}
-        
         <div class="form-container">
             <form method="post" class="form-with-validation">
                 {% csrf_token %}
-                
                 <div>
                     <label for="id_name">Name:</label>
                     {{ form.name }}
                 </div>
-                
                 <div>
                     <label for="id_email">Email:</label>
                     {{ form.email }}
                 </div>
-                
                 <div>
                     <label for="id_message">Message:</label>
                     {{ form.message }}
                 </div>
-                
                 <div class="slide-wrapper">
                     <button type="submit" class="slide-button">
                         <span>Send Message</span>

@@ -5,11 +5,7 @@
   --secondary-font: "Yuji Syuku", serif;
   
   --cinnabar-color:#e44d2e;
-  --rich-black-color:#001524;
-  --vista-blue-color:#7f96ff;
   --selective-yellow: #f7b801;
-  --light-text-color:#FFFFFF;
-  /* trying another colour scheme */
   --terracotta-color:#e2725b;
   --marble-white-color:#f5f5f5;
   --tyrian-purple-color:#66023C;
@@ -60,7 +56,7 @@ footer nav{
   display: none;
   background: none;
   border: none;
-  color: var(--light-text-color);
+  color: var(--marble-white-color);
   font-size: 1rem;
   cursor: pointer;
   padding: 0.5rem;
@@ -79,20 +75,18 @@ footer nav{
   list-style: none;
   transition: background-color 0.3s ease;
 }
-.navbar li:hover{
-  background-color: var(--terracotta-color);
-}
 .nav-column {
   display: flex;
   flex-direction: column;
   gap: 0;
 }
-.nav-column li {
+.nav-column li :hover{
   width: 100%;
+   background-color: var(--terracotta-color);
 }
 
 .navbar a{
-  color: var(--light-text-color);
+  color: var(--marble-white-color);
   padding: 0.5rem;
   display: block;
   text-decoration: none;
@@ -168,7 +162,7 @@ img{
   transition:all 0.4s;
 }
 .slide-button:hover{
-  color: var(--light-text-color);
+  color: var(---marble-white-color);
 }
 .slide-button:hover:after{
   width: 100%;
@@ -323,7 +317,7 @@ img{
 /* Footer styling */
 footer {
   background-color: var(--tyrian-purple-color);
-  color: var(--light-text-color);
+  color: var(--marble-white-color);
   padding: 1rem;
   text-align: center;
   margin-top: 2rem;
@@ -354,7 +348,7 @@ footer p {
 }
 
 .footer-nav a {
-  color: var(--light-text-color);
+  color: var(--marble-white-color);
   text-decoration: none;
   padding: 0.5rem 1rem;
   display: block;

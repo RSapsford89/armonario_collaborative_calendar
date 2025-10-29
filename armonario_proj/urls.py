@@ -25,10 +25,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('contact/', contact, name='contact'),
-    path('user/', include(('user_profile.urls','user_profile'), namespace='user')),
-    path('calendar/', include(('calendar_view.urls','calendar_view'), namespace='calendar')),
-    path('group/', include(('group_profile.urls','group_profile'), namespace='group')),
-    path('event/', include(('event_view.urls','event_view'), namespace='event')),
+    path('user/', include(('user_profile.urls', 'user_profile'), namespace='user')),
+    path('calendar/', include(('calendar_view.urls', 'calendar_view'), namespace='calendar')),
+    path('group/', include(('group_profile.urls', 'group_profile'), namespace='group')),
+    path('event/', include(('event_view.urls', 'event_view'), namespace='event')),
 ]
 
 if settings.DEBUG:
