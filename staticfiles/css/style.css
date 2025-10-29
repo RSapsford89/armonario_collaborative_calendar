@@ -219,6 +219,16 @@ img{
 .helptext{
   font-size: 0.8rem;
 }
+#group-input{
+  padding: 0.2rem;
+  margin: 0.5rem;
+  height: 1.5rem;
+}
+#code-input{
+  padding: 0.2rem;
+  margin: 0.5rem;
+  height: 1.5rem;
+}
 /* Styling for Event List page */
 /* Accordion functional design from: https://supfort.com/pure-css-accordion-without-javascript */
 /* Accordion items */
