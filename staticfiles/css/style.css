@@ -18,6 +18,7 @@ main{
   min-height: 60dvh;
   
 }
+/* using clamp() to help set responsive font sizes */
 h1 {
   font-family: var(--title-font);
   font-size: clamp(1.5rem, 5vw, 3rem);
@@ -31,6 +32,7 @@ p {
   font-size: 1rem;
   text-align: center;
 }
+/* try to center everything and set overall max width */
 body {
   margin: auto;
   width: 80%;
@@ -42,6 +44,7 @@ body {
 button{
   font-family: inherit;
 }
+/* set radii to give a relaxed feel to elements */
 header nav{
   background-color:var(--tyrian-purple-color);
   border-radius: 1rem;
@@ -62,6 +65,7 @@ footer nav{
   padding: 0.5rem;
   width: auto;
 }
+/* make navbar responsive, set spacing with gap */
 .navbar{
   padding: 0;
   display: flex;
@@ -71,10 +75,12 @@ footer nav{
   align-items: flex-start;
   gap: 0.5rem;
 }
+/* stop any element overflowing parent */
 .navbar *{
   padding: 0;
   overflow: hidden;
 }
+/* highlight effect on li elements */
 .navbar li{
   list-style: none;
   transition: background-color 0.3s ease;
@@ -84,6 +90,7 @@ footer nav{
   flex-direction: column;
   gap: 0;
 }
+/* highlight effect on li elements */
 .nav-column li :hover{
   width: 100%;
    background-color: var(--terracotta-color);
@@ -98,6 +105,7 @@ footer nav{
 div {
   border-radius: 1rem;
 }
+/* images to be circular */
 img{
   max-width: 100%;
   inline-size: 250px;
@@ -116,6 +124,8 @@ img{
 .justify-obj{
   justify-self: center;
 }
+/* use grid to create the desktop styling desired
+specify the spacing minmax */
 .info-blocks{
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(200px, 1fr));
@@ -131,7 +141,9 @@ img{
   margin-bottom: 2rem;
   padding: 0;
 }
-/* for styling the href element as a button */
+/* for styling the href element as a button 
+try to get site wide styling and then only
+have ID for the CTA signup-btn*/
 .slide-button{
   display: block;
   position: relative;
@@ -154,6 +166,8 @@ img{
   position: relative;
   z-index: 2;
 }
+/* The styling for the slide animation,
+ link in readme credits */
 .slide-button:after{
   position:absolute;
   border-radius: 1rem;
@@ -171,6 +185,7 @@ img{
 .slide-button:hover:after{
   width: 100%;
 }
+/* colour the homepage divs */
 .color-div-A{
   background-color: var(--olive-green);
   padding: 3rem;
@@ -184,6 +199,8 @@ img{
 .product-info{
     margin: 3rem 1rem;
 }
+/* set the styling on Django paginating
+otherwise eveything  is bunched together */
 .pagination{
   padding-top: 1.5rem;
   display: flex;
@@ -209,11 +226,12 @@ img{
   display: grid;
   gap: 0.5rem;
 }
-
+/* responsive form sizing with clamp for all the
+input elements! */
 .form-with-validation input, .form-with-validation textarea, .form-with-validation select{
   max-width: clamp(8rem, 30vw, 16rem);
 }
-
+/* form helptext made smaller  */
 .helptext{
   font-size: 0.8rem;
 }
@@ -256,9 +274,9 @@ img{
   display: block;
 }
 
-/* the inner content of the accordion */
+/* the inner content of the accordion
+create nice inner space for content */
 .accordion-content{
-  /* display: flex; */
   padding: 5%;
 }
 .accordion-content .button-container{
@@ -272,6 +290,8 @@ img{
   flex: 1; 
   max-width: 40%; 
 }
+/* we always want a declined event to be Grey
+so it must be !important to stop overwrites */
 .event-declined{
   background-color: lightgrey !important;
 }
@@ -285,38 +305,7 @@ img{
   flex-wrap: wrap;
   
 }
-/* Mobile navbar styles <768px tablet */
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-    margin: 0 auto;
-  }
-  
-  .navbar {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    gap: 0;
-  }
-  
-  .navbar.active {
-    display: flex;
-  }
-  
-  .nav-column {
-    width: 100%;
-    padding-bottom: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .navbar li {
-    width: 100%;
-    text-align: center;
-  }
-  .navbar a {
-    padding: 0.5rem;
-  }
-}
+
 
 /* Footer styling */
 footer {
@@ -356,4 +345,36 @@ footer p {
   text-decoration: none;
   padding: 0.5rem 1rem;
   display: block;
+}
+/* Mobile navbar styles <768px tablet */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .navbar {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 0;
+  }
+  
+  .navbar.active {
+    display: flex;
+  }
+  
+  .nav-column {
+    width: 100%;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .navbar li {
+    width: 100%;
+    text-align: center;
+  }
+  .navbar a {
+    padding: 0.5rem;
+  }
 }
