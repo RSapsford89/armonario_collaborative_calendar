@@ -1,30 +1,36 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block content %}
-{% comment " This skeleton code is taken from a YouTube Tutorial by DaveGray www.youtube.com/watch?v=DIFaOkxy6TE " %}{% endcomment %}
+    {% comment " This skeleton code is taken from a YouTube Tutorial by DaveGray www.youtube.com/watch?v=DIFaOkxy6TE " %}{% endcomment %}
     <section>
         <h1 class="title">JOIN THE GROUPS</h1>
         <hr>
-        {{search}}</p>
-        <form method="post" class="form-with-validation">
-            {% csrf_token %}
-            <div>
-                <label for="group-input">Group Name:</label>
-                <input id="group-input" type="text" name="group_search" value="{{group_search}}" placeholder="Search for a group...">
-            </div>
-            <div>
-                <label for="code-input">Share Code:</label>
-                <input id="code-input" type="text" name="sharecode_test" value="{{sharecode_test}}" placeholder="Enter the sharecode">
-            </div>
-            <div class="slide-wrapper">
-                <button type="submit" class="slide-button">
-                    <span>🔍 Search</span>
-                </button>
-            </div>
-        </form>
-        <p>{{response}}</p>
-
-        
-    </section>
+        {{ search }}
+    </p>
+    <form method="post" class="form-with-validation">
+        {% csrf_token %}
+        <div>
+            <label for="group-input">Group Name:</label>
+            <input id="group-input"
+                   type="text"
+                   name="group_search"
+                   value="{{ group_search }}"
+                   placeholder="Search for a group...">
+        </div>
+        <div>
+            <label for="code-input">Share Code:</label>
+            <input id="code-input"
+                   type="text"
+                   name="sharecode_test"
+                   value="{{ sharecode_test }}"
+                   placeholder="Enter the sharecode">
+        </div>
+        <div class="slide-wrapper">
+            <button type="submit" class="slide-button">
+                <span>🔍 Search</span>
+            </button>
+        </div>
+    </form>
+    <p>{{ response }}</p>
+</section>
 {% endblock content %}

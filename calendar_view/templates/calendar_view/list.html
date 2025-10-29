@@ -1,76 +1,76 @@
 {% extends "base.html" %}
-
 {% block content %}
-<section>
-    <div class="title">
-        <h1 class="title">YOUR EVENTS</h1>
-    </div>
-    <hr>
-    {% comment %} Pagination happens here. From doc: https://docs.djangoproject.com/en/5.2/topics/pagination/ {% endcomment %}
-    {% for item in page_obj %}
-    <div class="accordion-container">
-        <input type="checkbox" id="accordion-{{ forloop.counter }}" class="accordion-button" />
-        <label for="accordion-{{ forloop.counter }}"
-            class="{% if item.type == 'personal' and item.user_status == 'declined' %}event-declined{% endif %}"
-            {% if item.group %}
-                style="background-color: {{ item.group.GroupColour }};"
-            {% endif %}>
-            {{ item.event.EventName|upper }}
-            {% if item.type == 'personal' and item.user_status == 'declined' %} - Event Declined{% endif %}
-            {% if item.group %} (Group: {{ item.group.GroupName }}){% endif %}
-        </label>
-        
-        <div class="accordion-content">
-            <h2>{{ item.event.EventName }}</h2>
-            <details>
-                <summary>Invited:</summary>
-                <ul>
-                    {% for attendee in item.attendees %}
-                    <li>{{ attendee.username }}</li>
-                    {% empty %}
-                    <li>No one is linked to this event</li>
-                    {% endfor %}
-                </ul>
-            </details>
-            <p class="event-date"><strong>Date:</strong> {{ item.event.StartDate }} to {{ item.event.EndDate }}</p>
-            <p class="event-time"><strong>Time:</strong> {{ item.event.StartTime }} to {{ item.event.EndTime }}</p>
-            <p>{{ item.event.Notes }}</p>
-            {% if item.user_status %}
-                <p><strong>Your status:</strong> {{ item.user_status }}</p>
-            {% endif %}
-
-            <div class= "button-container">
-                <div class="slide-wrapper">
-                    <a href="{% url 'calendar:delete_event' item.event.id %}" class="slide-button">
-                        <span>Delete Event 💣</span>
-                    </a>
-                </div>
-                <div class="slide-wrapper">
-                    <a href="{% url 'calendar:edit_event' item.event.id %}" class="slide-button">
-                        <span>Edit Event ✍</span>
-                    </a>
+    <section>
+        <div class="title">
+            <h1 class="title">YOUR EVENTS</h1>
+        </div>
+        <hr>
+        {% comment %} Pagination happens here. From doc: https://docs.djangoproject.com/en/5.2/topics/pagination/ {% endcomment %}
+        {% for item in page_obj %}
+            <div class="accordion-container">
+                <input type="checkbox"
+                       id="accordion-{{ forloop.counter }}"
+                       class="accordion-button" />
+                <label for="accordion-{{ forloop.counter }}"
+                       class="{% if item.type == 'personal' and item.user_status == 'declined' %}event-declined{% endif %}"
+                       {% if item.group %}style="background-color: {{ item.group.GroupColour }};"{% endif %}>
+                    {{ item.event.EventName|upper }}
+                    {% if item.type == 'personal' and item.user_status == 'declined' %}- Event Declined{% endif %}
+                    {% if item.group %}(Group: {{ item.group.GroupName }}){% endif %}
+                </label>
+                <div class="accordion-content">
+                    <h2>{{ item.event.EventName }}</h2>
+                    <details>
+                        <summary>Invited:</summary>
+                        <ul>
+                            {% for attendee in item.attendees %}
+                                <li>{{ attendee.username }}</li>
+                            {% empty %}
+                                <li>No one is linked to this event</li>
+                            {% endfor %}
+                        </ul>
+                    </details>
+                    <p class="event-date">
+                        <strong>Date:</strong> {{ item.event.StartDate }} to {{ item.event.EndDate }}
+                    </p>
+                    <p class="event-time">
+                        <strong>Time:</strong> {{ item.event.StartTime }} to {{ item.event.EndTime }}
+                    </p>
+                    <p>{{ item.event.Notes }}</p>
+                    {% if item.user_status %}
+                        <p>
+                            <strong>Your status:</strong> {{ item.user_status }}
+                        </p>
+                    {% endif %}
+                    <div class= "button-container">
+                        <div class="slide-wrapper">
+                            <a href="{% url 'calendar:delete_event' item.event.id %}"
+                               class="slide-button">
+                                <span>Delete Event 💣</span>
+                            </a>
+                        </div>
+                        <div class="slide-wrapper">
+                            <a href="{% url 'calendar:edit_event' item.event.id %}"
+                               class="slide-button">
+                                <span>Edit Event ✍</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
+        {% empty %}
+            <p>No events to display.</p>
+        {% endfor %}
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+            <span class="current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
         </div>
-    </div>
-    {% empty %}
-        <p>No events to display.</p>
-    {% endfor %}
-
-    <div class="pagination">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </div>
-</section>
+    </section>
 {% endblock content %}
-

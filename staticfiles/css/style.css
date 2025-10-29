@@ -71,6 +71,10 @@ footer nav{
   align-items: flex-start;
   gap: 0.5rem;
 }
+.navbar *{
+  padding: 0;
+  overflow: hidden;
+}
 .navbar li{
   list-style: none;
   transition: background-color 0.3s ease;
@@ -162,7 +166,7 @@ img{
   transition:all 0.4s;
 }
 .slide-button:hover{
-  color: var(---marble-white-color);
+  color: var(--marble-white-color);
 }
 .slide-button:hover:after{
   width: 100%;

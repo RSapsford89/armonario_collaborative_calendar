@@ -1,21 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-{% comment " This skeleton code is taken from a YouTube Tutorial by DaveGray www.youtube.com/watch?v=DIFaOkxy6TE " %}{% endcomment %}
+    {% comment " This skeleton code is taken from a YouTube Tutorial by DaveGray www.youtube.com/watch?v=DIFaOkxy6TE " %}{% endcomment %}
     <section>
         <div class="title">
             <h1>CREATE AN EVENT</h1>
         </div>
         <hr>
-            <form action="/event/create/" method="post" class="form-with-validation">
-                {% csrf_token %}
-                {{eform}}
-                {{uform}}
-                <div class="slide-wrapper">
-                    <button type="submit" class="slide-button">
-                        <span>Create</span>
-                    </button>
-                </div>
-            </form>
-
+        <form action="/event/create/" method="post" class="form-with-validation">
+            {% csrf_token %}
+            {{ eform }}
+            {{ uform }}
+            <div class="slide-wrapper">
+                <button type="submit" class="slide-button">
+                    <span>Create</span>
+                </button>
+            </div>
+        </form>
     </section>
 {% endblock content %}

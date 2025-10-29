@@ -1,21 +1,24 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-{% comment " This skeleton code is based on a YouTube Tutorial by DaveGray www.youtube.com/watch?v=DIFaOkxy6TE " %}{% endcomment %}
+    {% comment " This skeleton code is based on a YouTube Tutorial by DaveGray www.youtube.com/watch?v=DIFaOkxy6TE " %}{% endcomment %}
     <section>
         <h1 class="title">EDIT YOUR PROFILE</h1>
         <hr>
         {% comment %} the addition of the enctype from the tutorial linked in readme for profile images {% endcomment %}
-        <form  method="post" enctype="multipart/form-data" class="form-with-validation">
+        <form method="post"
+              enctype="multipart/form-data"
+              class="form-with-validation">
             {% csrf_token %}
             {% if user.picture %}
-            <img src="{{user.picture.url}}" alt="Profile" style="max-width:200px">
-            {% else %} 
-            {% comment %} else was a suggested fix from AI if the site should not be able to fetch the image {% endcomment %}
-            <img src="{% static 'images/default_profile.webp' %}" alt="Profile" style="max-width:200px">
+                <img src="{{ user.picture.url }}" alt="Profile" style="max-width:200px">
+            {% else %}
+                {% comment %} else was a suggested fix from AI if the site should not be able to fetch the image {% endcomment %}
+                <img src="{% static 'images/default_profile.webp' %}"
+                     alt="Profile"
+                     style="max-width:200px">
             {% endif %}
-            {{form}}
-            
+            {{ form }}
             <div class="slide-wrapper">
                 <button type="submit" class="slide-button">
                     <span>Update Profile</span>

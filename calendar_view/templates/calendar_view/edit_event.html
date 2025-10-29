@@ -1,33 +1,29 @@
 {% extends "base.html" %}
-
 {% block content %}
-<section>
-    <h1 class="title">EVENT: {{event.EventName|upper}}</h1>
+    <section>
+        <h1 class="title">EVENT: {{ event.EventName|upper }}</h1>
+        <hr>
+        <form method="post" class="form-with-validation">
+            {% csrf_token %}
+            {{ event_form }}
+            <div class="slide-wrapper">
+                <button type="submit" class="slide-button" name="save_event">
+                    <span>Update Event</span>
+                </button>
+            </div>
+        </form>
+    </section>
+    <section>
+        <h2 class="justify-obj">Update Your Status</h2>
+        <form method="post" class="form-with-validation">
+            {% csrf_token %}
+            {{ status_form }}
+            <div class="slide-wrapper">
+                <button type="submit" class="slide-button" name="update_status">
+                    <span>Update Status</span>
+                </button>
+            </div>
+        </form>
+    </section>
     <hr>
-    
-    <form method="post" class="form-with-validation">
-        {% csrf_token %}
-        {{event_form}}
-        <div class="slide-wrapper">
-            <button type="submit" class="slide-button" name="save_event">
-                <span>Update Event</span>
-            </button>
-        </div>
-    </form>
-</section>
-
-<section>
-    <h2 class="justify-obj">Update Your Status</h2>
-    <form method="post" class="form-with-validation">
-        {% csrf_token %}
-        {{ status_form }}
-        <div class="slide-wrapper">
-            <button type="submit" class="slide-button" name="update_status">
-                <span>Update Status</span>
-            </button>
-        </div>
-    </form>
-</section>
-<hr>
 {% endblock content %}
-

@@ -1,13 +1,12 @@
 {% extends "base.html" %}
-
 {% block content %}
-{% comment " This skeleton code is taken from a YouTube Tutorial by DaveGray www.youtube.com/watch?v=DIFaOkxy6TE " %}{% endcomment %}
+    {% comment " This skeleton code is taken from a YouTube Tutorial by DaveGray www.youtube.com/watch?v=DIFaOkxy6TE " %}{% endcomment %}
     <section>
         <h1 class="title">CREATE A GROUP</h1>
         <hr>
         <form action="/group/create/" method="post" class="form-with-validation">
             {% csrf_token %}
-            {{form}}
+            {{ form }}
             <div class="slide-wrapper">
                 <button type="submit" class="slide-button">
                     <span>Submit</span>
@@ -15,5 +14,5 @@
             </div>
         </form>
     </section>
-    <p>{{response}}</p>
+    <p>{{ response }}</p>
 {% endblock content %}
