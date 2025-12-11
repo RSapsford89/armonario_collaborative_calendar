@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
     <section>
         <div class="title">
@@ -45,7 +46,7 @@
                     <div class= "button-container">
                         <div class="slide-wrapper">
                             <a href="{% url 'calendar:delete_event' item.event.id %}"
-                               class="slide-button">
+                               class="slide-button delete-event-btn">
                                 <span>Delete Event 💣</span>
                             </a>
                         </div>
@@ -74,3 +75,6 @@
         </div>
     </section>
 {% endblock content %}
+{% block extra_js %}
+    <script src="{% static 'calendar_view/js/calendar_view.js' %}"></script>
+{% endblock extra_js %}

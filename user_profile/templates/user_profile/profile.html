@@ -44,7 +44,8 @@
                         </p>
                         <div class="button-container">
                             <div class="slide-wrapper">
-                                <a href="{% url 'group:leave' item.group.id %}" class="slide-button">
+                                <a href="{% url 'group:leave' item.group.id %}"
+                                   class="slide-button leave-group-btn">
                                     <span>Leave Group 💣</span>
                                 </a>
                             </div>
@@ -66,3 +67,6 @@
         {% endif %}
     </section>
 {% endblock content %}
+{% block extra_js %}
+    <script src="{% static 'user_profile/js/user_profile.js' %}"></script>
+{% endblock extra_js %}
